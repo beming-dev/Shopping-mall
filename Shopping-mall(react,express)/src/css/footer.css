@@ -1,0 +1,42 @@
+.footer{
+    /* background: #FF8DA1; */
+    background: linear-gradient(to right, #ee9ca7, #ffdde1);
+    width: 100%;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer .icons{
+    margin-bottom: 15px;
+}
+
+.footer .icons i{
+    font-size: 30px;
+    margin: 0 5px;
+}
+
+.footer .info{
+    margin-bottom: 5px;
+}
+
+.footer .info a{
+    margin: 0 5px;
+}
+
+.footer .explain{
+    margin-bottom: 5px;
+}
+
+.footer .copyright{
+    
+}
+
+
+@media(max-width:500px){
+    .header .title{
+        font-size: 90px;
+    }
+}

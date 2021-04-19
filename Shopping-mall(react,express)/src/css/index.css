@@ -1,0 +1,48 @@
+:root{
+    --webkit-gradient:-webkit-linear-gradient(to right, #ffdde1, #ee9ca7);
+    --main-gradient: linear-gradient(to right, #ffdde1, #ee9ca7);
+}
+
+html{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+canvas{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    pointer-events: none;
+}
+
+.gradient{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background: #ee9ca7;  /* fallback for old browsers */
+    background: var(--webkit-gradient);/* Chrome 10-25, Safari 5.1-6 */
+    background: var(--main-gradient); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.enter{
+    width: 200px;
+    height: 70px;
+    font-size: 25px;
+    background: black;
+    color: #efefef;
+    text-align: center;
+    line-height: 70px;
+    border-radius: 5px;
+}

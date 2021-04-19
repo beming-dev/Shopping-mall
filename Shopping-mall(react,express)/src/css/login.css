@@ -1,0 +1,80 @@
+.login-body{
+    position: fixed;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login-body .login-container{
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.login-body .login-box{
+    width: 500px;
+    height: 500px;
+    background: var(--main-pink);
+    border-radius: 5px;
+    animation-duration: 1s;
+    animation-name: login;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-body .login-box label{
+    width: 300px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.login-body .login-box input{
+    border: 1px solid pink;
+    outline: none;
+}
+
+.login-body .login-box .login_btn{
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    margin-top: 70px;
+    background: pink;
+    border-radius: 5px;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+.login-body .login-box .login_btn:hover{
+    background: white;
+    color: pink;
+}
+
+.login-body .login-box .login_register{
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.login-body .login-box .login_register:hover{
+    text-decoration: underline;
+}
+
+@keyframes login{
+    0%{
+        margin-top:100%
+    }
+
+    100%{
+        margin-top:0%
+    }
+}

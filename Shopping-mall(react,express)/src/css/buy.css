@@ -1,0 +1,93 @@
+button{
+    outline: none;
+}
+
+.body{
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.buy .name{
+    color: white;
+    font-size: 40px;
+    border-bottom: 1px solid pink;
+}
+
+.buy .item{
+    width: 100%;
+    margin: 50px 0;
+    display: flex;
+}
+
+.buy .item .buy-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buy .item img{
+    width: 40%;
+}
+
+.buy .buy-box .price{
+    display: block;
+    color: white;
+    font-size: 30px;
+}
+
+.buy .item .buy-box .button-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buy .button-box button{
+    display: block;
+    width: 100px;
+    height: 50px;
+    margin: 0 5px;
+    background: white;
+    border: none;
+    border-radius: 3px;
+    color: pink;
+    font-size: 20px;
+    transition-duration: 0.5s;
+}
+
+.buy .button-box button:hover{
+    background: pink;
+    color: white;
+}
+
+.buy .button-box .button-like{
+    width: 50px;
+    height: 50px;
+}
+
+.buy .item-description{
+    border-top: 1px solid pink;
+    padding-top: 20px;
+    margin-bottom: 100px;
+    color: white;
+    font-size: 20px;
+}
+
+@media (max-width:800px){
+    .buy .item{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buy .item img{
+        width: 60%;
+    }
+
+    .buy .buy-box .price{
+        margin: 20px 0;
+    }
+}

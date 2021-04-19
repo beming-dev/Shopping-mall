@@ -1,0 +1,25 @@
+.about .body .about {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.about .body .about div{
+    margin-bottom: 40px;
+    font-size: 40px;
+    color: white;   
+}
+
+@media (max-width:1200px){
+    .about .body .about {
+        width: 90%;
+    }
+}
+
+@media (max-width:800px){
+    .about .body .about {
+        width: 90%;
+    }
+    .about .body .about div{
+        font-size: 30px;
+    }
+}
