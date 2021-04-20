@@ -1,3 +1,4 @@
+import { getDefaultNormalizer } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -8,14 +9,16 @@ class Register extends React.Component{
             "usingId": '',
             "id": '',
             "pw": '',
+            "pwc": '',
             "email": '',
         };
         this.checkID = this.checkID.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
-      }
+        this.onBlur = this.onBlur.bind(this);
+    }
     
-      checkID(e){
+    checkID(e){
         e.preventDefault();
         const data = {
             id: this.state.id
@@ -31,13 +34,13 @@ class Register extends React.Component{
             if(json.error){
                 alert("other ID");  //알람!
                 this.setState({
-                    usingId: true
+                    usingId: false
                 })
             }
             else{
                 alert("can use");
                 this.setState({
-                    usingId: false
+                    usingId: true
                 })
             }
         });
@@ -50,39 +53,49 @@ class Register extends React.Component{
     }
 
     onClick(e){
-        console.log(this.state.id);
-        console.log(this.state.pw);
-        if(!this.state.id){
-            alert('id wrong');
+        if(!this.state.id || this.state.id.length < 6 || this.state.id.length > 30){
+            alert('id wrong 6~30 length');
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        else if(!this.state.pw || this.state.pw.length < 8 || this.state.pw.length > 30){
+            alert('password wrong 8~30length');
             e.preventDefault();
             e.stopPropagation();
             return false;
         }
         else if(!this.state.pw){
-            alert('password wrong');
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-        }
-        else if(!this.state.pw){
-            alert('paaword wrong');
+            alert('paaword discordance');
             e.preventDefault();
             e.stopPropagation();
             return false;
         }
         else if(!this.state.email){
-            alert('email wrong');
+            alert('email plz');
             e.preventDefault();
             e.stopPropagation();
             return false;
         }
 
-        console.log(this.state.usingId);
         if(!this.state.usingId){
             alert("id check plz");
             e.preventDefault();
             e.stopPropagation();
             return false;
+        }
+    }
+
+    onBlur(){
+        let submit = document.querySelector('.register-container .submit');
+        let labelPwc = document.querySelector('.register-container .label_pwc');
+
+        if(this.state.pw != this.state.pwc){
+            submit.disabled=true;
+            labelPwc.classList.add("correspond");
+        }else{
+            submit.disabled=false;
+            labelPwc.classList.remove("correspond");
         }
     }
 
@@ -96,13 +109,13 @@ class Register extends React.Component{
                     <label htmlFor="pw" className="label_pw">password</label>
                     <input type="password" id="pw" name="pw" onChange={this.onChange}></input>
                     <label htmlFor="pwc" className="label_pwc">password check</label>
-                    <input type="password" id="pwc"></input>
+                    <input type="password" id="pwc" name="pwc" onChange={this.onChange} onBlur={this.onBlur}></input>
                     <label htmlFor="email" className="label_email" >email</label>
                     <input type="email" id="email" name="email" onChange={this.onChange}></input>
                     <label htmlFor="birth">birth</label>
                     <input type="date" id="birth" name="birth"></input>
                     
-                    <input type="submit" className="submit" onClick = {this.onClick}></input>
+                    <input type="submit" className="submit" onClick = {this.onClick} ></input>
                 </form>
             </div>
         )
