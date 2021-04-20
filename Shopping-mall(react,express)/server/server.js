@@ -100,14 +100,15 @@ app.post("/process_login", async (req, res) => {
     }else{
       crypto.pbkdf2(pw, idData[0][0].salt, 103011, 64, 'sha512', (err, key) =>{
         try{
-          if(key == idData[0][0].password){
+          if(key.toString('base64') == idData[0][0].pw){
             res.send({
-              "login": false,
-              "message": "pw ircorrect"
+              "login": true,
+              "message": "success"
               });
           }else{
             res.send({
-              "login": true,
+              "login": false,
+              "message": "pw ircorrect"
               });
           }
         }catch(err){
