@@ -98,11 +98,9 @@ app.post("/process_login", async (req, res) => {
         "message": "id ircorrect"
         });
     }else{
-      crypto.pbkdf2(idData[0][0].pw, idData[0][0].salt, 103011, 64, 'sha512', async(err, key) =>{
+      crypto.pbkdf2(pw, idData[0][0].salt, 103011, 64, 'sha512', (err, key) =>{
         try{
-          query = `select * from user where pw = ?`;
-          const pwData = await pool.query(query, [key]);
-          if(!pwData[0][0]){
+          if(key == idData[0][0].password){
             res.send({
               "login": false,
               "message": "pw ircorrect"
@@ -122,7 +120,7 @@ app.post("/process_login", async (req, res) => {
   }
 });
 
-app.post("/process_register", async (req, res) => {
+app.post("/process_register", async(req, res) => {
   let {id, pw, email, birth} = req.body;
 
   let query = `insert into user value(null, ?, ?, ?, ?, ?)`
@@ -130,7 +128,8 @@ app.post("/process_register", async (req, res) => {
   crypto.randomBytes(64, (err, buf) =>{
     crypto.pbkdf2(pw, buf.toString('base64'), 103011, 64, 'sha512', async(err, key) =>{
       try{
-        await pool.query(query, [id, key, email, birth, buf]);
+        await pool.query(query, [id, key.toString('base64'), email, birth, buf.toString('base64')]);
+        console.log("꺼억");
       }catch(err){
         return res.status(500).json(err);
       }
