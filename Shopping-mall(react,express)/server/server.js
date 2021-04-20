@@ -6,6 +6,7 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 
 // const pool = mysql.createPool({
 //   host: "localhost",
@@ -85,26 +86,59 @@ app.post('/checkId', async(req, res) => {
   }
 });
 
-app.post("/process_register", async (req, res) => {
-  let {id, pw, email, birth} = req.body;
-  query = `insert into user value(null, ?, ?, ?, ?)`
+app.post("/process_login", async (req, res) => {
+  let {id, pw} = req.body;
+
+  let query = `select * from user where id = ?`;
   try{
-    const data = await pool.query(query, [id, pw, email, birth]);
+    const idData = await pool.query(query, [id]);
+    if(!idData[0][0]){
+      res.send({
+        "login": false,
+        "message": "id ircorrect"
+        });
+    }else{
+      crypto.pbkdf2(idData[0][0].pw, idData[0][0].salt, 103011, 64, 'sha512', async(err, key) =>{
+        try{
+          query = `select * from user where pw = ?`;
+          const pwData = await pool.query(query, [key]);
+          if(!pwData[0][0]){
+            res.send({
+              "login": false,
+              "message": "pw ircorrect"
+              });
+          }else{
+            res.send({
+              "login": true,
+              });
+          }
+        }catch(err){
+          return res.status(500).json(err);
+        }
+      })
+    }
   }catch(err){
     return res.status(500).json(err);
   }
-
-  res.redirect('http://localhost:3000/home');
 });
 
-app.get("/process_login", async (req, res) => {
-  const query = "SELECT * FROM product WHERE id=?";
-  try {
-    const data = await pool.query(query, [req.params.id]);
-    return res.json(data[0]);
-  } catch (err) {
-    return res.status(500).json(err);
-  }
+app.post("/process_register", async (req, res) => {
+  let {id, pw, email, birth} = req.body;
+
+  let query = `insert into user value(null, ?, ?, ?, ?, ?)`
+
+  crypto.randomBytes(64, (err, buf) =>{
+    crypto.pbkdf2(pw, buf.toString('base64'), 103011, 64, 'sha512', async(err, key) =>{
+      try{
+        await pool.query(query, [id, key, email, birth, buf]);
+      }catch(err){
+        return res.status(500).json(err);
+      }
+    
+      console.log(key.toString('base64'));
+    })
+  })
+  res.redirect('http://localhost:3000/home');
 });
 
 app.listen(port, () => {

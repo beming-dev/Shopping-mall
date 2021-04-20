@@ -14,10 +14,10 @@ class Login extends React.Component {
         <div className="login-container" onClick={onLoginBackClick}></div>
         <form action="/process_login" method="post" className="login-box">
           <label htmlFor="login_id">id
-            <input id="login_id"></input>
+            <input name="id" id="login_id"></input>
           </label>
           <label htmlFor="login_pw">password
-            <input id="login_pw"></input>
+            <input name="password" id="login_pw"></input>
           </label>
           <input type="submit" className="login_btn" value="login"></input>
           <a href="/register" className="login_register">register</a>
