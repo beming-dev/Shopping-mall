@@ -65,19 +65,27 @@ app.get("/shop/buy/:id", async (req, res) => {
   }
 });
 
-app.post("/process_register", async (req, res) => {
-  let {id, pw, email, birth} = req.body;
-  
+app.post('/checkId', async(req, res) => {
+  let {id, pw, email, birth} = req.body || ' ';
+
   let query = `select * from user where id = ?`;
   try{
     const data = await pool.query(query, [id]);
-    if(!data[0]){
-      return res.json({error:"id already exist"});
+    if(!data[0][0]){
+      res.send({
+        "error": false,
+        });
+    }else{
+      res.send({
+        "error": true,
+        });
     }
   }catch(err){
     return res.status(500).json(err);
   }
+})
 
+app.post("/process_register", async (req, res) => {
   query = `insert into user value(null, ?, ?, ?, ?)`
   try{
     const data = await pool.query(query, [id, pw, email, birth]);

@@ -9,6 +9,14 @@
     align-items: center;
 }
 
+.register-container .field .checkID{
+    border: 1px solid pink;
+    color: white;
+    background: pink;
+    width: 70px;
+    border-radius: 5px;
+}
+
 .register-container .field label{
     width: 400px;
     text-align: left;

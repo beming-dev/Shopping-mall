@@ -10,25 +10,25 @@ console.log('1');
 
 submit.addEventListener('click', (e) =>{
     if(!id.value){
-        alert('id를 입력해주세요');
+        alert('id wrong');
         e.preventDefault();
         e.stopPropagation();
         return false;
     }
     else if(!password.value){
-        alert('password를 입력해주세요');
+        alert('password wrong');
         e.preventDefault();
         e.stopPropagation();
         return false;
     }
     else if(!passwordCheck.value){
-        alert('paaword일치 확인');
+        alert('paaword wrong');
         e.preventDefault();
         e.stopPropagation();
         return false;
     }
     else if(!email.value){
-        alert('email을 입력해주세요');
+        alert('email wrong');
         e.preventDefault();
         e.stopPropagation();
         return false;
