@@ -66,7 +66,7 @@ app.get("/shop/buy/:id", async (req, res) => {
 });
 
 app.post('/checkId', async(req, res) => {
-  let {id, pw, email, birth} = req.body || ' ';
+  let id = req.body.id;
 
   let query = `select * from user where id = ?`;
   try{
@@ -83,13 +83,13 @@ app.post('/checkId', async(req, res) => {
   }catch(err){
     return res.status(500).json(err);
   }
-})
+});
 
 app.post("/process_register", async (req, res) => {
+  let {id, pw, email, birth} = req.body;
   query = `insert into user value(null, ?, ?, ?, ?)`
   try{
     const data = await pool.query(query, [id, pw, email, birth]);
-    return res.json(data[0]);
   }catch(err){
     return res.status(500).json(err);
   }
