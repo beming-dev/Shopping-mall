@@ -17,6 +17,14 @@
     margin-bottom: 3px;
 }
 
+.register-container .field .correspond::after{
+    content: "password mismatch";
+    font-weight: bold;
+    color: red;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
 .register-container .field input{
     width: 400px;
     height: 25px;

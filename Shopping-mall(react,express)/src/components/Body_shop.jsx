@@ -18,6 +18,7 @@ class Body extends React.Component {
 
   render() {
     if(this.state.items){
+      console.log(this.state.items);
       return (
         <div className="body">
           {this.state.items.map(item =>
