@@ -101,6 +101,7 @@ app.post("/process_login", async (req, res) => {
       crypto.pbkdf2(pw, idData[0][0].salt, 103011, 64, 'sha512', (err, key) =>{
         try{
           if(key.toString('base64') == idData[0][0].pw){
+            req.session.login = true;
             res.send({
               "login": true,
               "message": "success"
