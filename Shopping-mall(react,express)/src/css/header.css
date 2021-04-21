@@ -94,6 +94,11 @@ a{
     color: pink;
 }
 
+.header .login-box .logout{
+    display: none;
+    width: fit-content;
+}
+
 .nav{
     width: 100%;
     height: var(--nav-height);
