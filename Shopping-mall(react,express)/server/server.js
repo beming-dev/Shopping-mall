@@ -27,7 +27,10 @@ let sessionStore = new MySQLStore({}, pool);
 
 const port = 3001;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(bodyParser.urlencoded({
   extended:true
 }));
@@ -36,15 +39,15 @@ app.use(session({
   secret:"asdfasffdsa",
   resave:false,
   saveUninitialized:true,
-  store: sessionStore
+  store: sessionStore,
 }))
 
-
-app.get("/api", (req, res) => {
-  res.json({ username: "" });
-});
-
 app.get("/api/shop", (req, res) => {});
+
+app.post("/api/isLogined", (req, res) => {
+  console.log(1);
+  res.send(req.session.login);
+});
 
 app.get("/shop", async (req, res) => {
   const query = "SELECT * FROM product";
@@ -87,6 +90,7 @@ app.post('/checkId', async(req, res) => {
 });
 
 app.post("/process_login", async (req, res) => {
+  console.log("come");
   let {id, pw} = req.body;
 
   let query = `select * from user where id = ?`;
@@ -120,6 +124,14 @@ app.post("/process_login", async (req, res) => {
   }catch(err){
     return res.status(500).json(err);
   }
+});
+
+app.post("/process_logout", async (req, res) => {
+  req.session.destroy((err)=>{
+    if(err) throw err;
+
+    console.log("삭제");
+  })
 });
 
 app.post("/process_register", async(req, res) => {

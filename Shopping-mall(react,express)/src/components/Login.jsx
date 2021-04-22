@@ -2,11 +2,6 @@ import React from "react";
 import "../css/login.css";
 import "../javascript/event.js";
 
-const onLoginBackClick = () => {
-  const loginBody = document.querySelector(".login-body");
-  loginBody.style.display = "none";
-};
-
 class Login extends React.Component {
   constructor(props){
     super(props);
@@ -15,9 +10,33 @@ class Login extends React.Component {
         "id": '',
         "pw": '',
     };
-    this.onClick = this.onClick.bind(this);
+    this.onLoginClick = this.onLoginClick.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onLoginBackClick = this.onLoginBackClick.bind(this);
   }
+
+  componentDidMount(){
+    let loginBtn = document.querySelector('.login-box .login');
+    let logoutBtn = document.querySelector('.login-box .logout');
+    fetch("http://localhost:3001/api/isLogined", {
+      method: 'post',
+      credentials: 'include'
+    })
+    .then(login =>{
+      if(login){
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+      }else{
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+      }
+    })
+  }
+
+  onLoginBackClick(){
+    const loginBody = document.querySelector(".login-body");
+    loginBody.style.display = "none";
+  };
 
   onChange(e){
     this.setState({
@@ -25,7 +44,7 @@ class Login extends React.Component {
     })
   }
 
-  onClick(e){
+  onLoginClick(e){
     e.preventDefault();
     const data = {
         "id": this.state.id,
@@ -34,22 +53,29 @@ class Login extends React.Component {
 
     fetch('http://localhost:3001/process_login',{ // localhost 3001번 포트 checkid라우터를 찾는다
         method:"post",
+        credentials: 'include',
         headers: { "Content-Type":  "application/json" },
         body: JSON.stringify(data),	// json화 해버리기
     })
     .then(res => res.json())
     .then(json => {
+      let loginBtn = document.querySelector('.login-box .login');
+      let logoutBtn = document.querySelector('.login-box .logout');
         if(json.login){
             alert(json.message);  //알람!
             this.setState({
-                login: false
-            })
+                login: true
+            });
+            loginBtn.style.display = "none";
+            logoutBtn.style.display = "inline-block";
         }
         else{
             alert(json.message);
             this.setState({
-                login: true
-            })
+                login: false
+            });
+            loginBtn.style.display = "inline-block";
+            logoutBtn.style.display = "none";
         }
     });
 }
@@ -57,15 +83,15 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login-body">
-        <div className="login-container" onClick={onLoginBackClick}></div>
-        <form action="/process_login" method="post" className="login-box">
+        <div className="login-container" onClick={this.onLoginBackClick}></div>
+        <form method="post" className="login-box">
           <label htmlFor="login_id">id
             <input name="id" id="login_id" onChange={this.onChange}></input>
           </label>
           <label htmlFor="login_pw">password
             <input name="pw" id="login_pw" onChange={this.onChange}></input>
           </label>
-          <input type="submit" className="login_btn" value="login" onClick={this.onClick}></input>
+          <input type="submit" className="login_btn" value="login" onClick={this.onLoginClick}></input>
           <a href="/register" className="login_register">register</a>
         </form>
       </div>
