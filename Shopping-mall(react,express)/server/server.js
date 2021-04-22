@@ -7,6 +7,7 @@ const MySQLStore = require('express-mysql-session')(session);
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
+const e = require("express");
 
 // const pool = mysql.createPool({
 //   host: "localhost",
@@ -45,8 +46,11 @@ app.use(session({
 app.get("/api/shop", (req, res) => {});
 
 app.post("/api/isLogined", (req, res) => {
-  console.log(1);
-  res.send(req.session.login);
+  if(req.session.login == null){
+    res.send(false);
+  }else{
+    res.send(req.session.login);
+  }
 });
 
 app.get("/shop", async (req, res) => {

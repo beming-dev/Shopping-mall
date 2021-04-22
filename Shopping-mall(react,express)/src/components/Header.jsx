@@ -14,6 +14,17 @@ class Header extends React.Component{
         this.onLogoutButtonClick = this.onLogoutButtonClick.bind(this);
     }
 
+    componentDidMount(){
+        fetch("http://localhost:3001/api/isLogined", {
+          method: 'post',
+          credentials: 'include'
+        })
+        .then(data => data.json())
+        .then(login =>{
+            this.setState({'login': login});
+        })
+      }    
+
     isLogined(login){
         this.setState({'login': login});
     }

@@ -10,18 +10,10 @@ class Login extends React.Component {
         "id": '',
         "pw": '',
     };
+    
+    this.onLoginBackClick = this.onLoginBackClick.bind(this);
     this.onLoginClick = this.onLoginClick.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onLoginBackClick = this.onLoginBackClick.bind(this);
-  }
-
-  componentDidMount(){
-    fetch("http://localhost:3001/api/isLogined", {
-      method: 'post',
-      credentials: 'include'
-    })
-    .then(login =>{
-    })
   }
 
   onLoginBackClick(){
@@ -62,8 +54,6 @@ class Login extends React.Component {
             this.setState({
                 login: false
             });
-            loginBtn.style.display = "inline-block";
-            logoutBtn.style.display = "none";
         }
     });
 }
