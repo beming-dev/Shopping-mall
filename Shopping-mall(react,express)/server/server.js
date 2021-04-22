@@ -127,11 +127,9 @@ app.post("/process_login", async (req, res) => {
 });
 
 app.post("/process_logout", async (req, res) => {
-  req.session.destroy((err)=>{
-    if(err) throw err;
-
-    console.log("삭제");
-  })
+  console.log("h");
+  req.session.login = false;
+  res.send(req.session.login);
 });
 
 app.post("/process_register", async(req, res) => {

@@ -16,20 +16,11 @@ class Login extends React.Component {
   }
 
   componentDidMount(){
-    let loginBtn = document.querySelector('.login-box .login');
-    let logoutBtn = document.querySelector('.login-box .logout');
     fetch("http://localhost:3001/api/isLogined", {
       method: 'post',
       credentials: 'include'
     })
     .then(login =>{
-      if(login){
-        loginBtn.style.display = "none";
-        logoutBtn.style.display = "inline-block";
-      }else{
-        loginBtn.style.display = "inline-block";
-        logoutBtn.style.display = "none";
-      }
     })
   }
 
@@ -59,15 +50,12 @@ class Login extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
-      let loginBtn = document.querySelector('.login-box .login');
-      let logoutBtn = document.querySelector('.login-box .logout');
         if(json.login){
             alert(json.message);  //알람!
             this.setState({
                 login: true
             });
-            loginBtn.style.display = "none";
-            logoutBtn.style.display = "inline-block";
+            this.props.isLogined(this.state.login);
         }
         else{
             alert(json.message);

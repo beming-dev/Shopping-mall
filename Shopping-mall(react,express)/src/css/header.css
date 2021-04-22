@@ -71,14 +71,14 @@ a{
     color: white;
 }
 
-.header .login-box{
+.header .login-box2{
     width: 150px;
     position: fixed;
     top: 90%;
     right: 5%;
 }
 
-.header .login-box button{
+.header .login-box2 button{
     width: 60px;
     height: 60px;
     margin: 5px 5px;
@@ -89,12 +89,12 @@ a{
     transition-duration: 1s;
 }
 
-.header .login-box button:hover{
+.header .login-box2 button:hover{
     background: white;
     color: pink;
 }
 
-.header .login-box .logout{
+.header .login-box2 .logout{
     display: none;
 }
 

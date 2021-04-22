@@ -5,7 +5,6 @@ import Header from './Header'
 import Footer from './Footer'
 import Nav from './Nav'
 import Body from './Body_home'
-import Login from './Login'
 
 class Home extends React.Component{
     render() { 
@@ -15,7 +14,6 @@ class Home extends React.Component{
                 <Nav/>
                 <Body/>
                 <Footer/>
-                <Login/>
             </div>
         )
     }

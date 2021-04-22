@@ -1,13 +1,21 @@
 import React from 'react';
 
+import Login from './Login'
+
 class Header extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            username:null
+            username:null,
+            login:null
         };
+        this.isLogined = this.isLogined.bind(this);
         this.onLoginButtonClick = this.onLoginButtonClick.bind(this);
         this.onLogoutButtonClick = this.onLogoutButtonClick.bind(this);
+    }
+
+    isLogined(login){
+        this.setState({'login': login});
     }
 
     onLoginButtonClick(){
@@ -16,27 +24,34 @@ class Header extends React.Component{
     }
 
     onLogoutButtonClick(e){
-        let loginBtn = document.querySelector('.login-box .login');
-        let logoutBtn = document.querySelector('.login-box .logout');
         fetch('http://localhost:3001/process_logout',{
           method:'post',
           credentials:'include'
-        }).then(data=>{
-            loginBtn.style.display = "inline-block";
-            logoutBtn.style.display = "none";
+        })
+        .then(res=>res.json())
+        .then(login=>{
+            console.log(login);
+            this.setState({'login':login});
         })
       }
 
     render(){
-        const {username} = this.state;
+        let log;
+        if(this.state.login){
+            log = "logout";
+            this.onLogButtonClick = this.onLogoutButtonClick;
+        }else{
+            log = "login";
+            this.onLogButtonClick = this.onLoginButtonClick;
+        }
         return (
             <div className="header">
-                <a href="/home" className="title">{username ? `PinkyWay ${username}` : 'PinkyWay'}</a>
-                <div className="login-box">
-                    <button className="login" onClick={this.onLoginButtonClick}>login</button>
-                    <button className="logout" onClick={this.onLogoutButtonClick}>logout</button>
+                <a href="/home" className="title">PinkyWay</a>
+                <div className="login-box2">
+                    <button className="login" onClick={this.onLogButtonClick}>{log}</button>
                     <button className="register" onClick={()=>{window.location.href='/register'}}>register</button>
                 </div>
+                <Login isLogined={this.isLogined}/>
             </div>
         )
     }
