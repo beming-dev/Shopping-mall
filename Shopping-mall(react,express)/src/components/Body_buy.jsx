@@ -7,7 +7,9 @@ class Buy extends React.Component{
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3001/shop/buy/${this.props.id}`)
+    fetch(`http://localhost:3001/shop/buy/${this.props.id}`, {
+      credentials: 'include'
+    })
     .then(res => res.json())
     .then(data => this.setState({item:data[0]}))
   }
