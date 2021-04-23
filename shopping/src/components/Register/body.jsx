@@ -19,31 +19,39 @@ class Register extends React.Component{
     }
     
     checkID(e){
-        e.preventDefault();
-        const data = {
-            id: this.state.id
+        if(this.state.id.length < 6 || this.state.id.length > 30){
+            e.preventDefault();
+            alert("id wrong 6~20 length");
+            this.setState({
+                usingId:false,
+            });
+        }else{
+            e.preventDefault();
+            const data = {
+                id: this.state.id
+            }
+    
+            fetch('http://localhost:3001/checkid',{ // localhost 3001번 포트 checkid라우터를 찾는다
+                method:"post",
+                headers: { "Content-Type":  "application/json" },
+                body: JSON.stringify(data),	// json화 해버리기
+            })
+            .then(res => res.json())
+            .then(json => {
+                if(json.error){
+                    alert("other ID");  //알람!
+                    this.setState({
+                        usingId: false
+                    })
+                }
+                else{
+                    alert("can use");
+                    this.setState({
+                        usingId: true
+                    })
+                }
+            });
         }
-
-        fetch('http://localhost:3001/checkid',{ // localhost 3001번 포트 checkid라우터를 찾는다
-            method:"post",
-            headers: { "Content-Type":  "application/json" },
-            body: JSON.stringify(data),	// json화 해버리기
-        })
-        .then(res => res.json())
-        .then(json => {
-            if(json.error){
-                alert("other ID");  //알람!
-                this.setState({
-                    usingId: false
-                })
-            }
-            else{
-                alert("can use");
-                this.setState({
-                    usingId: true
-                })
-            }
-        });
     }
 
     onChange(e){

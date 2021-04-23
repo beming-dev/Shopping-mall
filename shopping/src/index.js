@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter, Route, Redirect} from 'react-router-dom';
 
 import Enter from './domain/Main/index'
-import Home from './domain/Home/Home'
-import Shop from './domain/Shop/Shop'
-import News from './domain/News/News'
-import About from './domain/About/About'
-import Buy from './domain/Buy/Buy'
-import Register from './domain/Register/Register'
+import Home from './domain/Home/index'
+import Shop from './domain/Shop/index'
+import News from './domain/News/index'
+import About from './domain/About/index'
+import Buy from './domain/Buy/index'
+import Register from './domain/Register/index'
 
 
 class Index extends React.Component{
