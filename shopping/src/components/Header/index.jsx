@@ -13,6 +13,8 @@ class Header extends React.Component{
         this.isLogined = this.isLogined.bind(this);
         this.onLoginButtonClick = this.onLoginButtonClick.bind(this);
         this.onLogoutButtonClick = this.onLogoutButtonClick.bind(this);
+        this.onRegisterButtonClick = this.onRegisterButtonClick.bind(this);
+        this.onMyButtonClick = this.onMyButtonClick.bind(this);
     }
 
     componentDidMount(){
@@ -47,21 +49,33 @@ class Header extends React.Component{
         })
       }
 
+      onRegisterButtonClick(e){
+        window.location.href='/register';
+      }
+
+      onMyButtonClick(e){
+        window.location.href='/myPage';
+      }
+
     render(){
-        let log;
+        let log, right;
         if(this.state.login){
             log = "logout";
+            right = "MyPage";
             this.onLogButtonClick = this.onLogoutButtonClick;
+            this.onRightButtonClick = this.onMyButtonClick;
         }else{
+            right = "register"
             log = "login";
             this.onLogButtonClick = this.onLoginButtonClick;
+            this.onRightButtonClick = this.onRegisterButtonClick;
         }
         return (
             <div className="header">
                 <a href="/home" className="title">PinkyWay</a>
                 <div className="login-box2">
                     <button className="login" onClick={this.onLogButtonClick}>{log}</button>
-                    <button className="register" onClick={()=>{window.location.href='/register'}}>register</button>
+                    <button className="register" onClick={this.onRightButtonClick}>{right}</button>
                 </div>
                 <Login isLogined={this.isLogined}/>
             </div>

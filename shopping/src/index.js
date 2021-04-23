@@ -9,6 +9,7 @@ import News from './domain/News/index'
 import About from './domain/About/index'
 import Buy from './domain/Buy/index'
 import Register from './domain/Register/index'
+import MyPage from './domain/MyPage/index'
 
 
 class Index extends React.Component{
@@ -23,6 +24,7 @@ class Index extends React.Component{
                 <Route path="/about" component={About} exact/>
                 <Route path="/shop/buy/:id" component={Buy} exact/>
                 <Route path="/register" component={Register} exact/>
+                <Route path="/myPage" component={MyPage} exact/>
             </BrowserRouter>
         )
     }
