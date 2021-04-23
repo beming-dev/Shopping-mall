@@ -1,6 +1,6 @@
 import React from "react";
-import "../css/login.css";
-import "../javascript/event.js";
+import "#components/Header/Login/style.css";
+import "../../../javascript/event.js";
 
 class Login extends React.Component {
   constructor(props){

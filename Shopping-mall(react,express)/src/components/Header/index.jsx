@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Login from './Login'
+import Login from '#components/Header/Login/index'
+import "#components/Header/style.css";
 
 class Header extends React.Component{
     constructor(props){

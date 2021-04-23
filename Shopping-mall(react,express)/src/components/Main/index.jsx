@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/index.css'
+import '#components/Main/style.css'
 
 class Enter extends React.Component{
     render(){

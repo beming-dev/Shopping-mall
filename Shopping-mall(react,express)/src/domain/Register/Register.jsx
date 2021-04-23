@@ -1,10 +1,10 @@
 import React from 'react';
-import '../css/register.css'
+import '@/domain/Register/style.css'
 
-import Header from './Header'
-import Footer from './Footer'
-import Nav from './Nav'
-import Body from './Body_register'
+import Header from '#components/Header/index'
+import Footer from '#components/Footer/index'
+import Nav from '#components/Nav/index'
+import Body from '#components/Register/body'
 
 class Register extends React.Component{
     render(){

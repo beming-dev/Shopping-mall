@@ -1,10 +1,10 @@
 import React from 'react';
-import '../css/shop.css';
+import '@/domain/Shop/style.css';
 
-import Header from './Header'
-import Footer from './Footer'
-import Nav from './Nav'
-import Body from './Body_shop'
+import Header from '#components/Header/index'
+import Footer from '#components/Footer/index'
+import Nav from '#components/Nav/index'
+import Body from '#components/Shop/body'
 
 class Shop extends React.Component{
     render() { 

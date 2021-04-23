@@ -1,10 +1,10 @@
 import React from 'react';
-import '../css/buy.css';
+import '@/domain/Buy/style.css';
 
-import Header from './Header'
-import Footer from './Footer'
-import Nav from './Nav'
-import Body from './Body_buy'
+import Header from '#components/Header/index'
+import Footer from '#components/Footer/index'
+import Nav from '#components/Nav/index'
+import Body from '#components/Buy/body'
 
 class Buy extends React.Component{
     render() { 

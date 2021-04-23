@@ -1,10 +1,10 @@
 import React from 'react';
-import '../css/about.css';
+import '@/domain/About/about.css';
 
-import Header from './Header'
-import Footer from './Footer'
-import Nav from './Nav'
-import Body from './Body_about'
+import Header from '#components/Header/index'
+import Footer from '#components/Footer/index'
+import Nav from '#components/Nav/index'
+import Body from '#components/About/body'
 
 class About extends React.Component{
     render() { 
