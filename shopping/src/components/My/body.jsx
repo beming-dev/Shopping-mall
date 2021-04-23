@@ -3,18 +3,17 @@ import React from 'react';
 class Body extends React.Component{
     render(){
         return (
-            <div className="body">
-                <div className="part part1">
-                    <img src='/images/workplace.jpg' alt="" className="image image1"/>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus placeat doloribus quod culpa vel magni sint accusamus. Quidem aspernatur nemo voluptates recusandae unde itaque ea quo voluptas cum ex. Pariatur.</p>
-                </div>
-                <div className="part part2">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus placeat doloribus quod culpa vel magni sint accusamus. Quidem aspernatur nemo voluptates recusandae unde itaque ea quo voluptas cum ex. Pariatur.</p>
-                    <img src="/images/flower.jpg" alt="" className="image image2"/>
-                </div>
-                <div className="part part3">
-                    <img src="/images/workplace.jpg" alt="" className="image image3"/>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus placeat doloribus quod culpa vel magni sint accusamus. Quidem aspernatur nemo voluptates recusandae unde itaque ea quo voluptas cum ex. Pariatur.</p>
+            <div className="mypage">
+                <ul className="my-nav">
+                    <a href="/myPage/buy">주문 내역</a>
+                    <a href="#!">구매 내역</a>
+                    <a href="#!">좋아요</a>
+                    <a href="#!">쿠폰</a>
+                    <a href="#!">최근 본 상품</a>
+                    <a href="#!">회원 정보 수정</a>
+                </ul>
+                <div>
+                    hello
                 </div>
             </div>
         )
