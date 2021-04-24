@@ -17,13 +17,13 @@ class Index extends React.Component {
       <BrowserRouter>
         <Route path="/" component={Enter} exact />
         <Route path="/home" component={Home} exact />
-        <Route path="/shop" component={Shop} exact />
-        <Route path="/news" component={News} exact />
-        <Route path="/blog" component={About} exact />
-        <Route path="/about" component={About} exact />
-        <Route path="/shop/buy/:id" component={Buy} exact />
-        <Route path="/register" component={Register} exact />
-        <Route path="/myPage" component={MyPage} exact />
+        <Route path="/shop" component={Shop} />
+        <Route path="/news" component={News} />
+        <Route path="/blog" component={About} />
+        <Route path="/about" component={About} />
+        <Route path="/shop/buy/:id" component={Buy} />
+        <Route path="/register" component={Register} />
+        <Route path="/myPage" component={MyPage} />
       </BrowserRouter>
     );
   }
