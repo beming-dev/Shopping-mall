@@ -1,21 +1,55 @@
-.mypage{
-    min-height: 800px;
-    display: flex;
-    margin-top: 100px;
+.my-nav {
+  display: flex;
 }
 
-.mypage .my-nav{
-    width: 150px;
-    height: 300px;
-    padding: 0;
-    margin: 0;
-    border: 1px solid white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+.my-nav {
+  width: 150px;
+  height: 300px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.mypage .my-nav a{
-    color: white;
+.my-nav a {
+  color: white;
+}
+
+.shop-body {
+  min-height: 800px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  display: flex;
+}
+
+.my-order {
+  width: 70%;
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-self: center;
+  border: 1px solid white;
+}
+
+.my-order .order-list-box {
+  padding: 0;
+}
+
+.my-order .order-list {
+  display: flex;
+  border: 1px solid black;
+}
+
+.my-order .order-list img {
+  width: 10%;
+}
+
+.my-order .order-list .left {
+  width: 70%;
+}
+
+.my-order .order-list .right {
+  width: 20%;
 }
