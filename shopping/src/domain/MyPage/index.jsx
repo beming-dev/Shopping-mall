@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import { Route } from "react-router-dom";
 
@@ -14,24 +14,33 @@ import Order from "../../components/MyOrder/index";
 // import Recent from "../../components/MyRecent/index";
 // import Info from "../../components/MyInfo/index";
 
-class Shop extends React.Component {
-  render() {
-    return (
-      <div className="shop">
-        <Header />
-        <div className="shop-body">
-          <MyNav />
-          <Route path="/myPage/order" component={Order} />
-          <Route path="/myPage/purchase" component={Order} />
-          <Route path="/myPage/like" component={Order} />
-          <Route path="/myPage/coupon" component={Order} />
-          <Route path="/myPage/recent" component={Order} />
-          <Route path="/myPage/info" component={Order} />
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-}
+export default function MyPage() {
+  useEffect(() => {
+    fetch("http://localhost:3001/api/isLogined", {
+      credentials: "include",
+      method: "post",
+    })
+      .then((res) => res.json())
+      .then((login) => {
+        if (!login) {
+          window.location.href = "/home";
+        }
+      });
+  }, []);
 
-export default Shop;
+  return (
+    <div className="shop">
+      <Header />
+      <div className="shop-body">
+        <MyNav />
+        <Route path="/myPage/order" component={Order} />
+        <Route path="/myPage/purchase" component={Order} />
+        <Route path="/myPage/like" component={Order} />
+        <Route path="/myPage/coupon" component={Order} />
+        <Route path="/myPage/recent" component={Order} />
+        <Route path="/myPage/info" component={Order} />
+      </div>
+      <Footer />
+    </div>
+  );
+}
