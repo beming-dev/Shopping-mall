@@ -30,7 +30,12 @@
   max-width: 1000px;
   margin: 0 auto;
   justify-self: center;
-  border: 1px solid white;
+}
+
+.my-order .text {
+  text-align: center;
+  color: white;
+  font-size: 30px;
 }
 
 .my-order .order-list-box {
@@ -39,17 +44,19 @@
 
 .my-order .order-list {
   display: flex;
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 .my-order .order-list img {
-  width: 10%;
+  width: 20%;
 }
 
 .my-order .order-list .left {
-  width: 70%;
+  width: 60%;
+  color: white;
 }
 
 .my-order .order-list .right {
   width: 20%;
+  color: white;
 }
