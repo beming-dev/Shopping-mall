@@ -12,7 +12,7 @@ import Order from "../../components/MyOrder/index";
 // import Like from "../../components/MyLike/index";
 // import Coupon from "../../components/MyCoupon/index";
 // import Recent from "../../components/MyRecent/index";
-// import Info from "../../components/MyInfo/index";
+import Info from "../../components/MyInfo/index";
 
 export default function MyPage() {
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function MyPage() {
         <Route path="/myPage/like" component={Order} />
         <Route path="/myPage/coupon" component={Order} />
         <Route path="/myPage/recent" component={Order} />
-        <Route path="/myPage/info" component={Order} />
+        <Route path="/myPage/info" component={Info} />
       </div>
       <Footer />
     </div>
