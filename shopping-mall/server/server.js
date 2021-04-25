@@ -52,6 +52,16 @@ app.post("/api/isLogined", (req, res) => {
   }
 });
 
+app.post("/api/loginInfo", async(req, res) => {
+  let query = `select * from user where num=${req.session.loginID}`;
+  try{
+    const data = await pool.query(query);
+    return res.json(data[0]);
+  }catch(err){
+    return res.status(500).json(err); 
+  }
+});
+
 app.use("/api/orderList", (req, res) => {
   const query = "select * from order";
   res.send({
@@ -102,7 +112,6 @@ app.post("/checkId", async (req, res) => {
 });
 
 app.post("/process_login", async (req, res) => {
-  console.log("come");
   let { id, pw } = req.body;
 
   let query = `select * from user where id = ?`;
@@ -118,6 +127,7 @@ app.post("/process_login", async (req, res) => {
         try {
           if (key.toString("base64") == idData[0][0].pw) {
             req.session.login = true;
+            req.session.loginID = idData[0][0].num;
             res.send({
               login: true,
               message: "success",
