@@ -115,7 +115,7 @@ class Register extends React.Component{
                     <input id="id" name="id" onChange={this.onChange}></input>
                     <button onClick={this.checkID} className="checkID">id check</button>
                     <label htmlFor="pw" className="label_pw">password</label>
-                    <input type="password" id="pw" name="pw" onChange={this.onChange}></input>
+                    <input type="password" id="pw" name="pw" onChange={this.onChange} onBlur={this.onBlur}></input>
                     <label htmlFor="pwc" className="label_pwc">password check</label>
                     <input type="password" id="pwc" name="pwc" onChange={this.onChange} onBlur={this.onBlur}></input>
                     <label htmlFor="email" className="label_email" >email</label>

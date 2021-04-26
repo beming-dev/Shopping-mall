@@ -62,3 +62,11 @@
   width: 20%;
   color: white;
 }
+
+.correspond::after{
+  content: "password mismatch";
+  font-weight: bold;
+  color: red;
+  margin-left: 20px;
+  font-size: 14px;
+}

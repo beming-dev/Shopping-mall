@@ -187,6 +187,10 @@ app.post("/process_register", async (req, res) => {
   res.redirect("http://localhost:3000/home");
 });
 
+app.post("/process_update_info", async(req, res)=>{
+  let { id, pw, email, birth } = req.body;
+})
+
 app.listen(port, () => {
   console.log(`Listening on potr ${port}`);
 });
