@@ -62,13 +62,15 @@ app.post("/api/loginInfo", async(req, res) => {
   }
 });
 
-app.use("/api/orderList", (req, res) => {
-  const query = "select * from order";
-  res.send({
-    image: "/images/stock.jpg",
-    name: "상품1",
-    price: "30000원",
-  });
+app.post("/api/orderList", async(req, res) => {
+  const query = "select * from product where id = ?";
+  
+  try{
+    const data = await pool.query(query, [req.body.id]);
+    return res.send(data[0]);
+  }catch(err){
+    return res.status(500).json(err);
+  }
 });
 
 app.get("/shop", async (req, res) => {

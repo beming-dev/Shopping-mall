@@ -10,10 +10,7 @@ class Buy extends React.Component {
   render() {
     return (
       <div className="buy">
-        <Header />
-        <Nav />
         <Body id={this.props.match.params.id} />
-        <Footer />
       </div>
     );
   }

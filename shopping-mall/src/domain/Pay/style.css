@@ -1,0 +1,32 @@
+.pay{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.pay .productInfo{
+    width: 90%;
+    height: 200px;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.pay .productInfo .image{
+    text-align: center;
+    width: 30%;
+}
+
+.pay .productInfo .name{
+    text-align: center;
+    width: 40%;
+}
+
+.pay .productInfo .price{
+    text-align: center;
+    width: 30%;
+}

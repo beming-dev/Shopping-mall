@@ -34,11 +34,11 @@ class Login extends React.Component {
         "pw": this.state.pw
     }
 
-    fetch('http://localhost:3001/process_login',{ // localhost 3001번 포트 checkid라우터를 찾는다
+    fetch('http://localhost:3001/process_login',{
         method:"post",
         credentials: 'include',
         headers: { "Content-Type":  "application/json" },
-        body: JSON.stringify(data),	// json화 해버리기
+        body: JSON.stringify(data),	
     })
     .then(res => res.json())
     .then(json => {
