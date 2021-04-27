@@ -25,7 +25,7 @@ class Buy extends React.Component{
             <div className="buy-box">
               <div className="price">{this.state.item.price} won</div>
               <div className="button-box">
-                <Link to={`/shop/pay/${this.props.id}`} className="button-buy" onClick="">구입</Link>
+                <Link to={`/shop/pay/${this.props.id}`} className="button-buy">구입</Link>
                 <Link to={`/shop/pay/${this.props.id}`} className="button-bag">장바구니</Link>
                 <Link to={`/shop/pay/${this.props.id}`} className="button-like"><i className="far fa-heart"></i></Link>
               </div>

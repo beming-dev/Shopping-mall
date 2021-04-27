@@ -8,6 +8,9 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
 const e = require("express");
+const cookie = require('cookie');
+const cookieParser = require('cookie-parser');
+let cookieSession = require("cookie-session");
 
 const dbInfo = JSON.parse(fs.readFileSync(__dirname + "/db.json", "UTF-8"));
 const pool = mysql.createPool({
@@ -20,6 +23,22 @@ const pool = mysql.createPool({
 let sessionStore = new MySQLStore({}, pool);
 
 const port = 3001;
+
+app.use(
+  cookieParser(process.env.COOKIE_SECRET, { sameSite: "none", secure: true })
+);
+
+app.set('trust proxy', 1)
+// app.use(
+//     cookieSession({
+//       name: "__session",
+//       keys: ["key1"],
+//         maxAge: 24 * 60 * 60 * 100,
+//         secure: true,
+//         httpOnly: true,
+//         sameSite: 'none'
+//     })
+// );
 
 app.use(
   cors({
@@ -39,6 +58,10 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store: sessionStore,
+    cookie: {
+      sameSite:"none",
+      secure:true
+    }
   })
 );
 
