@@ -28,7 +28,6 @@ export default function Pay(props){
         .then(res => res.json())
         .then(data =>{
             setUser(data[0]);
-            console.log(data);
             payData.buyer_name = data[0].id;
             payData.buyer_email = data[0].email;
         })
@@ -70,7 +69,6 @@ export default function Pay(props){
         const {IMP} = window;
         IMP.init('imp85727494');
 
-        
         IMP.request_pay(payData, callback);
 
         function callback(response){
