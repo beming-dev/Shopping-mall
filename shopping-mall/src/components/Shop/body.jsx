@@ -11,7 +11,7 @@ class Body extends React.Component {
   }
 
   componentDidMount(){
-    fetch('http://localhost:3001/shop', {
+    fetch('https://localhost:3001/shop', {
       credentials: 'include'
     })
     .then(res => res.json())

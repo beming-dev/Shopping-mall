@@ -10,7 +10,14 @@ const crypto = require("crypto");
 const e = require("express");
 const cookie = require('cookie');
 const cookieParser = require('cookie-parser');
-let cookieSession = require("cookie-session");
+const cookieSession = require("cookie-session");
+const https = require('https');
+const http = require('http');
+
+const options = {
+  key: fs.readFileSync('../shopping-mall/localhost-key.pem'),
+  cert: fs.readFileSync('../shopping-mall/localhost.pem'),
+}
 
 const dbInfo = JSON.parse(fs.readFileSync(__dirname + "/db.json", "UTF-8"));
 const pool = mysql.createPool({
@@ -42,7 +49,7 @@ app.set('trust proxy', 1)
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://localhost:3000",
     credentials: true,
   })
 );
@@ -58,10 +65,6 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store: sessionStore,
-    cookie: {
-      sameSite:"none",
-      secure:true
-    }
   })
 );
 
@@ -216,6 +219,6 @@ app.post("/process_update_info", async(req, res)=>{
   let { id, pw, email, birth } = req.body;
 })
 
-app.listen(port, () => {
+https.createServer(options, app).listen(port, ()=>{
   console.log(`Listening on potr ${port}`);
-});
+})

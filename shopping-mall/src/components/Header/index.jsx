@@ -19,7 +19,7 @@ class Header extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3001/api/isLogined", {
+    fetch("https://localhost:3001/api/isLogined", {
       method: "post",
       credentials: "include",
     })
@@ -39,7 +39,7 @@ class Header extends React.Component {
   }
 
   onLogoutButtonClick(e) {
-    fetch("http://localhost:3001/process_logout", {
+    fetch("https://localhost:3001/process_logout", {
       method: "post",
       credentials: "include",
     })

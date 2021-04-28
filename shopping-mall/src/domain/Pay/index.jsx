@@ -21,7 +21,7 @@ export default function Pay(props){
     const[user, setUser] = useState({});
 
     useEffect(() => {
-        fetch("http://localhost:3001/api/loginInfo",{
+        fetch("https://localhost:3001/api/loginInfo",{
             credentials: 'include',
             method:"post",
         })
@@ -38,7 +38,7 @@ export default function Pay(props){
         let data = {
             id: props.match.params.id,
         }
-        fetch("http://localhost:3001/api/orderList", {
+        fetch("https://localhost:3001/api/orderList", {
             credentials: 'include',
             method:"post",
             headers: { "Content-Type":  "application/json" },

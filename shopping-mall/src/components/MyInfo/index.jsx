@@ -39,7 +39,7 @@ export default function MyInfo() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/loginInfo", {
+    fetch("https://localhost:3001/api/loginInfo", {
       method:"post",
       credentials: "include"   })
       .then(res => res.json())

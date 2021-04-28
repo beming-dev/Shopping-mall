@@ -16,7 +16,7 @@ import Info from "../../components/MyInfo/index";
 
 export default function MyPage() {
   useEffect(() => {
-    fetch("http://localhost:3001/api/isLogined", {
+    fetch("https://localhost:3001/api/isLogined", {
       credentials: "include",
       method: "post",
     })

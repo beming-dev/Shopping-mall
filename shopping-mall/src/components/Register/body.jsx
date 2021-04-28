@@ -31,7 +31,7 @@ class Register extends React.Component{
                 id: this.state.id
             }
     
-            fetch('http://localhost:3001/checkid',{ // localhost 3001번 포트 checkid라우터를 찾는다
+            fetch('https://localhost:3001/checkid',{ // localhost 3001번 포트 checkid라우터를 찾는다
                 method:"post",
                 headers: { "Content-Type":  "application/json" },
                 body: JSON.stringify(data),	// json화 해버리기
