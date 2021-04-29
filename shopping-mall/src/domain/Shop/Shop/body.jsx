@@ -1,6 +1,6 @@
 import React from "react";
 
-import Item from './Item/index'
+import Item from '../../../components/Item/index'
 
 class Body extends React.Component {
   constructor(props){
@@ -25,12 +25,7 @@ class Body extends React.Component {
         <div className="body">
           {this.state.items.map(item =>
             <Item 
-            key={item.id}
-            id={item.id}
-            price={item.price}
-            description={item.description}
-            name={item.name}
-            image={item.image}
+            itemInfo={item}
             />
           )}
         </div>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-import Item from '../../Shop/Shop/Item/index'
+import Item from '../../../components/Item/index'
 
 export default function Basket(){
 
