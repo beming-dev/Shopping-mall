@@ -110,6 +110,7 @@ app.get("/shop", async (req, res) => {
 });
 
 app.get("/shop/buy/:id", async (req, res) => {
+  console.log(2);
   const query = "SELECT * FROM product WHERE id=?";
   try {
     const data = await pool.query(query, [req.params.id]);

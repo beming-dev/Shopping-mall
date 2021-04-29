@@ -4,7 +4,6 @@ import "../About/index";
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
 import Nav from "../../components/Nav/index";
-import Body from "../../components/About/body";
 
 class About extends React.Component {
   render() {
@@ -12,7 +11,6 @@ class About extends React.Component {
       <div className="blog">
         <Header />
         <Nav />
-        <Body />
         <Footer />
       </div>
     );

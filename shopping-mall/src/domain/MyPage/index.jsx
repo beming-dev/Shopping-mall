@@ -4,16 +4,16 @@ import { Route } from "react-router-dom";
 
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
-import Nav from "../../components/Nav/index";
-import MyNav from "../../components/MyNav/body";
+// import Nav from "../../components/Nav/index";
 
-import Order from "../../components/MyOrder/index";
-import Basket from "../../components/Basket/index";
+import MyNav from "./MyNav/body";
+import Order from "./MyOrder/index";
+import Basket from "./Basket/index";
 // import Purchase from "../../components/MyPurchase/index";
 // import Like from "../../components/MyLike/index";
 // import Coupon from "../../components/MyCoupon/index";
 // import Recent from "../../components/MyRecent/index";
-import Info from "../../components/MyInfo/index";
+import Info from "./MyInfo/index";
 
 export default function MyPage() {
   useEffect(() => {
