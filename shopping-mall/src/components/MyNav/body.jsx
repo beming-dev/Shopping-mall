@@ -7,6 +7,7 @@ class Body extends React.Component {
       <ul className="my-nav">
         <Link to="/myPage/order">주문 내역</Link>
         <Link to="/myPage/purchase">구매 내역</Link>
+        <Link to="/myPage/basket">장바구니</Link>
         <Link to="/myPage/like">좋아요</Link>
         <Link to="/myPage/coupon">쿠폰</Link>
         <Link to="/myPage/recent">최근 본 상품</Link>

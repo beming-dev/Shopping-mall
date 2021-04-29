@@ -5,6 +5,8 @@ class Buy extends React.Component{
   constructor(props){
     super(props);
     this.state = {item:null};
+
+    this.onBasketClick = this.onBasketClick.bind(this);
   }
 
   componentDidMount(){
@@ -13,6 +15,26 @@ class Buy extends React.Component{
     })
     .then(res => res.json())
     .then(data => this.setState({item:data[0]}))
+  }
+
+  onBasketClick(){
+    const data = {
+      product_id: this.props.id,
+    }
+    fetch('https://localhost:3001/process_basket', {
+      credentials: 'include',
+      method: 'post',
+      headers: { "Content-Type":  "application/json" },
+      body: JSON.stringify(data),	
+    })
+    .then(res => res.json())
+    .then(data=>{
+      if(data.result){
+        alert("장바구니에 들어갔습니다.");
+      }else{
+        alert("이미 장바구니에 존재하는 상품입니다.")
+      }
+    })
   }
 
   render(){
@@ -26,7 +48,7 @@ class Buy extends React.Component{
               <div className="price">{this.state.item.price} won</div>
               <div className="button-box">
                 <Link to={`/shop/pay/${this.props.id}`} className="button-buy">구입</Link>
-                <Link to={`/shop/pay/${this.props.id}`} className="button-bag">장바구니</Link>
+                <button className="button-bag" onClick={this.onBasketClick}>장바구니</button>
                 <Link to={`/shop/pay/${this.props.id}`} className="button-like"><i className="far fa-heart"></i></Link>
               </div>
             </div>

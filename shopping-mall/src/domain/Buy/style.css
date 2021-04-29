@@ -46,7 +46,7 @@ button{
     align-items: center;
 }
 
-.buy .button-box a{
+.buy .button-box a, .buy .button-box button{
     text-align: center;
     line-height: 50px;
     display: block;
@@ -62,7 +62,7 @@ button{
     transition-duration: 0.5s;
 }
 
-.buy .button-box a:hover{
+.buy .button-box a:hover, .buy .button-box button:hover{
     background: pink;
     color: white;
 }

@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 function Order() {
+
   return (
     <li className="order-list">
       <img src="/images/flower.jpg" alt="img" />
@@ -9,5 +10,4 @@ function Order() {
     </li>
   );
 }
-
 export default Order;

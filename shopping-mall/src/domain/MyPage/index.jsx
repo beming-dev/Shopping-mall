@@ -8,6 +8,7 @@ import Nav from "../../components/Nav/index";
 import MyNav from "../../components/MyNav/body";
 
 import Order from "../../components/MyOrder/index";
+import Basket from "../../components/Basket/index";
 // import Purchase from "../../components/MyPurchase/index";
 // import Like from "../../components/MyLike/index";
 // import Coupon from "../../components/MyCoupon/index";
@@ -39,6 +40,7 @@ export default function MyPage() {
         <Route path="/myPage/coupon" component={Order} />
         <Route path="/myPage/recent" component={Order} />
         <Route path="/myPage/info" component={Info} />
+        <Route path="/myPage/basket" component={Basket} />
       </div>
       <Footer />
     </div>

@@ -176,8 +176,22 @@ app.post("/process_login", async (req, res) => {
   }
 });
 
+app.post("/process_basket", async (req, res)=>{
+  const query = `insert into basket values(null, ${req.session.loginID}, ?)`;
+  try{
+    await pool.query(query, [req.body.product_id]);
+    res.json({
+      result:true,
+    })
+  }
+  catch(err){
+    res.json({
+      result:false,
+    })
+  }
+})
+
 app.post("/process_logout", async (req, res) => {
-  console.log("h");
   req.session.login = false;
   res.send(req.session.login);
 });
@@ -212,7 +226,7 @@ app.post("/process_register", async (req, res) => {
       }
     );
   });
-  res.redirect("http://localhost:3000/home");
+  res.redirect("https://localhost:3000/home");
 });
 
 app.post("/process_update_info", async(req, res)=>{
