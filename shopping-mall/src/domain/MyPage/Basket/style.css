@@ -1,0 +1,13 @@
+.basket{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.basket .item{
+    width: 90%;
+    border: 1px solid white;
+    margin: 10px 0;
+}

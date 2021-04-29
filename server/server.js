@@ -88,7 +88,7 @@ app.post("/api/loginInfo", async(req, res) => {
   }
 });
 
-app.post("/api/orderList", async(req, res) => {
+app.post("/api/itemInfo", async(req, res) => {
   const query = "select * from product where id = ?";
   
   try{
@@ -98,6 +98,16 @@ app.post("/api/orderList", async(req, res) => {
     return res.status(500).json(err);
   }
 });
+
+app.post("/api/basket", async(req, res) => {
+  const query = "select * from basket left join product on basket.product_id=product.id where user_id=?";
+  try{
+    const data = await pool.query(query, [req.session.loginID]);
+    res.send(data[0]);
+  }catch{
+    return res.status(500).json(err);
+  }
+})
 
 app.get("/shop", async (req, res) => {
   const query = "SELECT * FROM product";

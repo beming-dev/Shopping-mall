@@ -1,11 +1,12 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import './style.css'
 
 class Enter extends React.Component{
     render(){
         return (
             <div className="gradient">
-                <a href="/home" className="enter">Welcome</a>
+                <Link to="/home" className="enter">Welcome</Link>
             </div>
         )
     }

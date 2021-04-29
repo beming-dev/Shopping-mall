@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 import "./style.css";
 import "../../../javascript/event.js";
 
@@ -70,7 +71,7 @@ class Login extends React.Component {
             <input name="pw" id="login_pw" onChange={this.onChange}></input>
           </label>
           <input type="submit" className="login_btn" value="login" onClick={this.onLoginClick}></input>
-          <a href="/register" className="login_register">register</a>
+          <Link to="/register" className="login_register">register</Link>
         </form>
       </div>
     );

@@ -37,7 +37,7 @@ export default function Pay(props){
         let data = {
             id: props.match.params.id,
         }
-        fetch("https://localhost:3001/api/orderList", {
+        fetch("https://localhost:3001/api/itemInfo", {
             credentials: 'include',
             method:"post",
             headers: { "Content-Type":  "application/json" },

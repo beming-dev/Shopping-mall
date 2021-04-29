@@ -5,7 +5,7 @@ import Order from "./Order";
 function MyOrder() {
   const [orderList, setOrderList] = useState({});
   useEffect(() => {
-    fetch("https://localhost:3001/api/orderList")
+    fetch("https://localhost:3001/api/itemInfo")
       .then({
         credentials: "include",
       })

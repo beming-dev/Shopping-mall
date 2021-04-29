@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 import './style.css'
 
@@ -12,16 +13,16 @@ class Footer extends React.Component {
           <i className="fab fa-github-square"></i>
         </div>
         <div className="info">
-          <a href="#!">Info</a>
-          <a href="#!">Support</a>
-          <a href="#!">Marketing</a>
+          <Link to="#!">Info</Link>
+          <Link to="#!">Support</Link>
+          <Link to="#!">Marketing</Link>
         </div>
         <div className="explain">
-          <a href="#!">Terms of Use</a>
-          <a href="#!">Privacy Policy</a>
+          <Link to="#!">Terms of Use</Link>
+          <Link to="#!">Privacy Policy</Link>
         </div>
         <div className="copyright">
-          <a href="#!">ⓒ 2021 beming-dev</a>
+          <Link to="#!">ⓒ 2021 beming-dev</Link>
         </div>
       </div>
     );
