@@ -50,7 +50,6 @@ export default function Pay(props){
                     i += element.price * element.count;
                 });
                 setTotalPrice(i);
-                payData.amount = i;
             })
         }
         else{
@@ -67,7 +66,6 @@ export default function Pay(props){
             .then(data => {
                 setProduct(data);
                 setTotalPrice(data[0].price);
-                payData.amount = data[0].price;
             })
         }
     }, []);
@@ -89,13 +87,14 @@ export default function Pay(props){
         payData.buyer_postcode = buyerPostcode;
         payData.buyer_addr = buyerAddress + buyerAddress2;
 
+        payData.amount = totalPrice;
+
         const {IMP} = window;
         IMP.init('imp85727494');
 
         IMP.request_pay(payData, callback);
 
         function callback(response){
-            console.log(1);
         const {
             success,
             error_msg,
