@@ -43,12 +43,14 @@ class Login extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
+        let thisObject = document.querySelector('.login-body');
         if(json.login){
             alert(json.message);  //알람!
             this.setState({
                 login: true
             });
             this.props.isLogined(this.state.login);
+            thisObject.style.display = "none";
         }
         else{
             alert(json.message);
@@ -70,8 +72,8 @@ class Login extends React.Component {
           <label htmlFor="login_pw">password
             <input name="pw" id="login_pw" onChange={this.onChange}></input>
           </label>
-          <input type="submit" className="login_btn" value="login" onClick={this.onLoginClick}></input>
-          <Link to="/register" className="login_register">register</Link>
+          <input type="submit" className="login-btn" value="login" onClick={this.onLoginClick}></input>
+          <Link to="/register" className="login-register">register</Link>
         </form>
       </div>
     );

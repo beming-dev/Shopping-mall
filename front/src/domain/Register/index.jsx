@@ -101,7 +101,7 @@ onClick(e){
       let submit = document.querySelector('.register-container .submit');
       let labelPwc = document.querySelector('.register-container .label_pwc');
 
-      if(this.state.pw != this.state.pwc){
+      if(this.state.pw !== this.state.pwc){
           submit.disabled=true;
           labelPwc.classList.add("correspond");
       }else{

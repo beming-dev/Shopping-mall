@@ -2,9 +2,9 @@ import React from "react";
 import {Link} from 'react-router-dom'
 import "./style.css";
 
-import Header from "../../../components/Header/index";
-import Footer from "../../../components/Footer/index";
-import Nav from "../../../components/Nav/index";
+// import Header from "../../../components/Header/index";
+// import Footer from "../../../components/Footer/index";
+// import Nav from "../../../components/Nav/index";
 
 class Buy extends React.Component {
   constructor(props){
@@ -16,9 +16,10 @@ class Buy extends React.Component {
     }};
 
     this.onBasketClick = this.onBasketClick.bind(this);
+    this.onPayClick = this.onPayClick.bind(this);
   }
 
-  componentWillMount(){
+  componentDidMount(){
     fetch(`https://localhost:3001/shop/buy/${this.props.match.params.id}`, {
       credentials: 'include'
     })
@@ -46,6 +47,21 @@ class Buy extends React.Component {
     })
   }
 
+  onPayClick(e){
+    fetch("https://localhost:3001/api/isLogined", {
+      credentials:'include',
+      method: 'post',
+    })
+    .then(res => res.json())
+    .then(login =>{
+      if(!login){
+        alert("you need login");
+      }else{
+        window.location.href=`/shop/pay/${this.props.match.params.id}`
+      }
+    })
+  }
+
   render() {
     return (
       <div className="buy">
@@ -56,7 +72,7 @@ class Buy extends React.Component {
               <div className="buy-box">
                 <div className="price">{this.state.item.price} won</div>
                 <div className="button-box">
-                  <Link to={`/shop/pay/${this.props.match.params.id}`} className="button-buy">구입</Link>
+                  <button className="button-buy" onClick={this.onPayClick}>구입</button>
                   <button className="button-bag" onClick={this.onBasketClick}>장바구니</button>
                   <Link to={`/shop/pay/${this.props.match.params.id}`} className="button-like"><i className="far fa-heart"></i></Link>
                 </div>

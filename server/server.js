@@ -15,8 +15,8 @@ const https = require('https');
 const http = require('http');
 
 const options = {
-  key: fs.readFileSync('../shopping-mall/localhost-key.pem'),
-  cert: fs.readFileSync('../shopping-mall/localhost.pem'),
+  key: fs.readFileSync('../front/localhost-key.pem'),
+  cert: fs.readFileSync('../front/localhost.pem'),
 }
 
 const dbInfo = JSON.parse(fs.readFileSync(__dirname + "/db.json", "UTF-8"));
@@ -120,7 +120,6 @@ app.get("/shop", async (req, res) => {
 });
 
 app.get("/shop/buy/:id", async (req, res) => {
-  console.log(2);
   const query = "SELECT * FROM product WHERE id=?";
   try {
     const data = await pool.query(query, [req.params.id]);
@@ -228,12 +227,9 @@ app.post("/process_register", async (req, res) => {
             birth,
             buf.toString("base64"),
           ]);
-          console.log("꺼억");
         } catch (err) {
           return res.status(500).json(err);
         }
-
-        console.log(key.toString("base64"));
       }
     );
   });
@@ -242,6 +238,17 @@ app.post("/process_register", async (req, res) => {
 
 app.post("/process_update_info", async(req, res)=>{
   let { id, pw, email, birth } = req.body;
+})
+
+app.post("/updateCount", async(req, res) => {
+  let query = `update basket set count = ? where cart_id = ?`
+
+  try{
+    pool.query(query, [req.body.count, req.body.id]);
+    res.json({success:true});
+  }catch{
+    return res.status(500).json(err);
+  }
 })
 
 https.createServer(options, app).listen(port, ()=>{

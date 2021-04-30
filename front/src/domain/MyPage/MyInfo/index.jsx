@@ -28,7 +28,7 @@ export default function MyInfo() {
     let pwc = document.querySelector('.myInfo #pwc');
     let labelPwc = document.querySelector('.myInfo .label_pwc');
 
-    if(pw.value != pwc.value){
+    if(pw.value !== pwc.value){
       labelPwc.classList.add('correspond');
       setSubmit(false);
     }else{

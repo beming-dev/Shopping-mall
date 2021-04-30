@@ -31,7 +31,7 @@ export default function Pay(props){
             payData.buyer_name = data[0].id;
             payData.buyer_email = data[0].email;
         })
-    }, []);
+    }, [payData]);
 
     useEffect(() =>{
         let data = {
@@ -47,7 +47,7 @@ export default function Pay(props){
         .then(data => {
             setProduct(data[0]);
         })
-    }, []);
+    }, [props.match.params.id]);
 
     function onClick(){
         let daum = document.querySelector(".daum");
@@ -89,7 +89,7 @@ export default function Pay(props){
     return (
     <div className="pay">
         <div className="productInfo">
-            <img className="image" src="" alt="image"/>
+            <img className="image" src="" alt="myimg"/>
             <div className="name">{product.name}</div>
             <div className="price">{product.price}won</div>
         </div>

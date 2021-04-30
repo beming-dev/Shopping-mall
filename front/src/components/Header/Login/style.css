@@ -44,7 +44,7 @@
     outline: none;
 }
 
-.login-body .login-box .login_btn{
+.login-body .login-box .login-btn{
     width: 100px;
     height: 40px;
     font-size: 20px;
@@ -55,17 +55,17 @@
     transition-duration: 0.5s;
 }
 
-.login-body .login-box .login_btn:hover{
+.login-body .login-box .login-btn:hover{
     background: white;
     color: pink;
 }
 
-.login-body .login-box .login_register{
+.login-body .login-box .login-register{
     margin-top: 10px;
     font-size: 14px;
 }
 
-.login-body .login-box .login_register:hover{
+.login-body .login-box .login-register:hover{
     text-decoration: underline;
 }
 

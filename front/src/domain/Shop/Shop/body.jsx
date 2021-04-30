@@ -26,6 +26,7 @@ class Body extends React.Component {
           {this.state.items.map(item =>
             <Item 
             itemInfo={item}
+            key={item.id}
             />
           )}
         </div>
