@@ -48,7 +48,7 @@ class Item extends React.Component{
             .then(res => res.json())
             .then(success => {
                 if(success){
-                    window.location.href = "/myPage/basket";
+                    window.location.reload();
                 }
             })
         }

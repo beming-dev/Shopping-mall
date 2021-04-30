@@ -42,7 +42,7 @@ export default function Basket(){
             <div className="totalPrice">
                 total price: {totalPrice} won
             </div>
-            <Link to="/shop/pay/1" className="pay-btn">결제하기</Link>
+            <Link to="/shop/pay/basket" className="pay-btn">결제하기</Link>
         </div>
     )
 }

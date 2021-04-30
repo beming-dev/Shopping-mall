@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import "./style.css"
 
 import Postcode from './Postcode'
+import Item from '../../../components/Item/index'
 
 export default function Pay(props){
     let payData = {
         pg:'kakaopay',
         pay_method:'card',
         merchant_uid:'merchant_' + new Date().getTime(),
-        amount: 1000,
+        amount: 1,
         name: 'test',
         buyer_name: '',
         buyer_tel: '',
@@ -17,8 +18,9 @@ export default function Pay(props){
         buyer_postcode: '',
     }
 
-    const[product, setProduct] = useState({});
+    const[product, setProduct] = useState([{}]);
     const[user, setUser] = useState({});
+    const[totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         fetch("https://localhost:3001/api/loginInfo",{
@@ -31,23 +33,44 @@ export default function Pay(props){
             payData.buyer_name = data[0].id;
             payData.buyer_email = data[0].email;
         })
-    }, [payData]);
+    }, []);
 
     useEffect(() =>{
-        let data = {
-            id: props.match.params.id,
+        if(props.match.params.id == 'basket'){
+            fetch("https://localhost:3001/api/basket", {
+                credentials: 'include',
+                method:"post",
+            })
+            .then(res => res.json())
+            .then(data => {
+                setProduct(data);
+                let i=0;
+                console.log(data);
+                data.forEach(element => {
+                    i += element.price * element.count;
+                });
+                setTotalPrice(i);
+                payData.amount = i;
+            })
         }
-        fetch("https://localhost:3001/api/itemInfo", {
-            credentials: 'include',
-            method:"post",
-            headers: { "Content-Type":  "application/json" },
-            body: JSON.stringify(data),	
-        })
-        .then(res => res.json())
-        .then(data => {
-            setProduct(data[0]);
-        })
-    }, [props.match.params.id]);
+        else{
+            let data = {
+                id: props.match.params.id,
+            }
+            fetch("https://localhost:3001/api/itemInfo", {
+                credentials: 'include',
+                method:"post",
+                headers: { "Content-Type":  "application/json" },
+                body: JSON.stringify(data),	
+            })
+            .then(res => res.json())
+            .then(data => {
+                setProduct(data);
+                setTotalPrice(data[0].price);
+                payData.amount = data[0].price;
+            })
+        }
+    }, []);
 
     function onClick(){
         let daum = document.querySelector(".daum");
@@ -88,11 +111,18 @@ export default function Pay(props){
 
     return (
     <div className="pay">
+
         <div className="productInfo">
-            <img className="image" src="" alt="myimg"/>
-            <div className="name">{product.name}</div>
-            <div className="price">{product.price}won</div>
+            {product.map(item => 
+                <Item 
+                    itemInfo = {item}
+                    key = {item.cart_id}
+                />
+            )}
         </div>
+
+        <div className="total-price">total amount : {totalPrice}won</div>
+
         <form action="" className="payInfo">
             <label htmlFor="buyer_name">name</label>
             <input type="text" id="buyer_name"/>

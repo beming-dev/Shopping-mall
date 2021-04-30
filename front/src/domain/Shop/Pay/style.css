@@ -11,26 +11,29 @@
 
 .pay .productInfo{
     width: 90%;
-    height: 200px;
     border: 1px solid white;
     display: flex;
     align-items: center;
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.pay .productInfo .image{
-    text-align: center;
-    width: 30%;
+.pay .productInfo .item{
+    width: 100%;
+    padding: 10px;
+    display: flex;
 }
 
-.pay .productInfo .name{
-    text-align: center;
-    width: 40%;
+.pay .productInfo .item img{
+    width: 20%;
 }
 
-.pay .productInfo .price{
-    text-align: center;
-    width: 30%;
+.pay .productInfo .item .right{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .pay .payInfo{
@@ -69,6 +72,12 @@
 .pay .payInfo .daum{
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.pay .total-price{
+    color: white;
+    font-size: 30px;
+    margin-top: 50px;
 }
 
 .invisible{
