@@ -16,6 +16,8 @@ import Basket from "./Basket/index";
 import Info from "./MyInfo/index";
 
 export default function MyPage() {
+  let propuctRegistration;
+
   useEffect(() => {
     fetch("https://localhost:3001/api/isLogined", {
       credentials: "include",

@@ -45,8 +45,8 @@ class Header extends React.Component {
     })
       .then((res) => res.json())
       .then((login) => {
-        console.log(login);
         this.setState({ login: login });
+        window.location.href = "/home";
       });
   }
 

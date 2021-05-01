@@ -8,16 +8,16 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
 const e = require("express");
-const cookie = require('cookie');
-const cookieParser = require('cookie-parser');
+const cookie = require("cookie");
+const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
-const https = require('https');
-const http = require('http');
+const https = require("https");
+const http = require("http");
 
 const options = {
-  key: fs.readFileSync('../front/localhost-key.pem'),
-  cert: fs.readFileSync('../front/localhost.pem'),
-}
+  key: fs.readFileSync("../front/localhost-key.pem"),
+  cert: fs.readFileSync("../front/localhost.pem"),
+};
 
 const dbInfo = JSON.parse(fs.readFileSync(__dirname + "/db.json", "UTF-8"));
 const pool = mysql.createPool({
@@ -35,7 +35,7 @@ app.use(
   cookieParser(process.env.COOKIE_SECRET, { sameSite: "none", secure: true })
 );
 
-app.set('trust proxy', 1)
+app.set("trust proxy", 1);
 // app.use(
 //     cookieSession({
 //       name: "__session",
@@ -78,36 +78,37 @@ app.post("/api/isLogined", (req, res) => {
   }
 });
 
-app.post("/api/loginInfo", async(req, res) => {
+app.post("/api/loginInfo", async (req, res) => {
   let query = `select * from user where num=${req.session.loginID}`;
-  try{
+  try {
     const data = await pool.query(query);
     return res.json(data[0]);
-  }catch(err){
-    return res.status(500).json(err); 
+  } catch (err) {
+    return res.status(500).json(err);
   }
 });
 
-app.post("/api/itemInfo", async(req, res) => {
+app.post("/api/itemInfo", async (req, res) => {
   const query = "select * from product where id = ?";
-  
-  try{
+
+  try {
     const data = await pool.query(query, [req.body.id]);
     return res.send(data[0]);
-  }catch(err){
+  } catch (err) {
     return res.status(500).json(err);
   }
 });
 
-app.post("/api/basket", async(req, res) => {
-  const query = "select * from basket left join product on basket.product_id=product.id where user_id=?";
-  try{
+app.post("/api/basket", async (req, res) => {
+  const query =
+    "select * from basket left join product on basket.product_id=product.id where user_id=?";
+  try {
     const data = await pool.query(query, [req.session.loginID]);
     res.send(data[0]);
-  }catch{
+  } catch (err) {
     return res.status(500).json(err);
   }
-})
+});
 
 app.get("/shop", async (req, res) => {
   const query = "SELECT * FROM product";
@@ -186,23 +187,25 @@ app.post("/process_login", async (req, res) => {
   }
 });
 
-app.post("/process_basket", async (req, res)=>{
-  const query = `insert into basket values(null, ${req.session.loginID}, ?)`;
-  try{
+app.post("/process_basket", async (req, res) => {
+  const query = `insert into basket values(null, ${req.session.loginID}, ?, 1)`;
+  try {
     await pool.query(query, [req.body.product_id]);
     res.json({
-      result:true,
-    })
-  }
-  catch(err){
+      result: true,
+      login: req.session.login,
+    });
+  } catch (err) {
     res.json({
-      result:false,
-    })
+      result: false,
+      login: req.session.login,
+    });
   }
-})
+});
 
 app.post("/process_logout", async (req, res) => {
   req.session.login = false;
+  req.session.loginID = null;
   res.send(req.session.login);
 });
 
@@ -236,21 +239,31 @@ app.post("/process_register", async (req, res) => {
   res.redirect("https://localhost:3000/home");
 });
 
-app.post("/process_update_info", async(req, res)=>{
+app.post("/process_update_info", async (req, res) => {
   let { id, pw, email, birth } = req.body;
-})
+});
 
-app.post("/updateCount", async(req, res) => {
-  let query = `update basket set count = ? where cart_id = ?`
+app.post("/updateCount", async (req, res) => {
+  let query = `update basket set count = ? where cart_id = ?`;
 
-  try{
+  try {
     pool.query(query, [req.body.count, req.body.id]);
-    res.json({success:true});
-  }catch{
+    res.json({ success: true });
+  } catch {
     return res.status(500).json(err);
   }
-})
+});
 
-https.createServer(options, app).listen(port, ()=>{
+app.post("/seller-registration", async (req, res) => {
+  let query = `update user set seller='1' where num=?`;
+  try {
+    pool.query(query, [req.session.loginId]);
+    console.log(2);
+  } catch {
+    return res.status(500).json(err);
+  }
+});
+
+https.createServer(options, app).listen(port, () => {
   console.log(`Listening on potr ${port}`);
-})
+});
