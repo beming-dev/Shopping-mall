@@ -2,7 +2,8 @@
 
 # dependencies
 node_modules
-./shopping/server/db.json
+./server/db.json
+admin.json
 /.pnp
 .pnp.js
 
