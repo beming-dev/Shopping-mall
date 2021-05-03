@@ -2,7 +2,7 @@
 
 # dependencies
 node_modules
-./server/db.json
+db.json
 admin.json
 /.pnp
 .pnp.js
