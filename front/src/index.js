@@ -11,6 +11,7 @@ import Register from "./domain/Register/index";
 import MyPage from "./domain/MyPage/index";
 import Seller from "./domain/Seller/index";
 import ProductRegistration from "./domain/ProductRegistration/index";
+import Admin from "./domain/Admin/index";
 
 class Index extends React.Component {
   render() {
@@ -26,6 +27,7 @@ class Index extends React.Component {
         <Route path="/myPage" component={MyPage} />
         <Route path="/seller-registration" component={Seller} />
         <Route path="/product-registration" component={ProductRegistration} />
+        <Route path="/beming/admin" component={Admin} />
       </BrowserRouter>
     );
   }

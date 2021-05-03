@@ -17,8 +17,6 @@ const multer = require('multer');
 const path = require('path');
 const { pathToFileURL } = require("url");
 
-const adminInfo = JSON.parse(fs.readFileSync(__dirname + "/admin.json", "UTF-8"));
-
 const upload = multer({
   storage:multer.diskStorage({
     destination: function(req, file, cb){
@@ -84,6 +82,8 @@ app.use(
     store: sessionStore,
   })
 );
+
+app.use("/admin", require("./routes/admin"));
 
 app.get("/api/shop", (req, res) => {});
 
