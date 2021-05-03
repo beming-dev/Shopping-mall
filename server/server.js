@@ -13,6 +13,21 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const https = require("https");
 const http = require("http");
+const multer = require('multer');
+const path = require('path');
+const { pathToFileURL } = require("url");
+
+const upload = multer({
+  storage:multer.diskStorage({
+    destination: function(req, file, cb){
+      cb(null, '../front/public/images');
+    },
+    filename: function (req, file, cb) {
+      cb(null, new Date().valueOf() + path.extname(file.originalname));
+    },
+    limits: {fileSize: 5 * 1024 * 1024}
+  })
+});
 
 const options = {
   key: fs.readFileSync("../front/localhost-key.pem"),
@@ -255,7 +270,7 @@ app.post("/updateCount", async (req, res) => {
 });
 
 app.post("/seller-registration", async (req, res) => {
-  let query = `update user set seller='1' where num=?`;
+  let query = `update user set seller=1 where num=?`;
   try {
     pool.query(query, [req.session.loginId]);
     console.log(2);
@@ -263,6 +278,17 @@ app.post("/seller-registration", async (req, res) => {
     return res.status(500).json(err);
   }
 });
+
+app.post('/product-registration', upload.single('productImage'), (req, res) =>{
+  const query = `insert into product values(null, ?, ?, ?, ?, ?)`
+  console.log(req.body);
+  try{
+    pool.query(query, [req.body.productPrice, req.body.productName, req.body.productInformation, req.file.filename, req.session.loginID]);
+    res.send(true);
+  }catch(err){
+    return res.status(500).json(err);
+  }
+})
 
 https.createServer(options, app).listen(port, () => {
   console.log(`Listening on potr ${port}`);

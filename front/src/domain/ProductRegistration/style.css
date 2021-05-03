@@ -1,6 +1,7 @@
 .product-registration {
   width: 100%;
   min-height: 500px;
+  margin: 100px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,15 +18,16 @@
 }
 
 .product-registration .register-form label {
-  max-width: 500px;
-  width: 40%;
+  max-width: 600px;
+  width: 50%;
   color: white;
   text-align: left;
 }
 
 .product-registration .register-form input {
-  max-width: 500px;
-  width: 40%;
+  max-width: 600px;
+  width: 50%;
+  height: 30px;
   border: none;
   outline: none;
   margin-bottom: 20px;
@@ -39,6 +41,14 @@
   color: white;
   margin-top: 30px;
   transition-duration: 1s;
+}
+
+.product-registration .register-form #product-information{
+  width: 50%;
+  max-width: 600px;
+  border: none;
+  outline: none;
+  min-height: 400px;
 }
 
 .product-registration .register-form .submit:hover {

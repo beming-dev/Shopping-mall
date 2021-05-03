@@ -63,7 +63,7 @@ class Item extends React.Component{
     render(){
         return (
         <Link to={`/shop/buy/${this.props.itemInfo.id}`} className="item">
-            <img src="images/stock.jpg" alt="idontknow" className="image" />
+            <img src={`images/${this.props.itemInfo.image}`} alt="idontknow" className="image" />
             <div className="right">
                 <div className="name">{this.props.itemInfo.name}</div>
                 {this.description}

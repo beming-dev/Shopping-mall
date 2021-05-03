@@ -86,7 +86,7 @@ export default function Pay(props){
         payData.buyer_tel = buyerTel;
         payData.buyer_postcode = buyerPostcode;
         payData.buyer_addr = buyerAddress + buyerAddress2;
-
+        
         payData.amount = totalPrice;
 
         const {IMP} = window;

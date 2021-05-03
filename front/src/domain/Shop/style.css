@@ -1,5 +1,6 @@
 .shop .body .item{
     width: 90%;
+    min-height: 150px;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -8,6 +9,8 @@
 
 .shop .body .item .image{
     width: 30%;
+    height: fit-content;
+    align-self: center;
 }
 
 .shop .body .item .right{
@@ -28,20 +31,20 @@
 }
 
 .shop .body .item .description{
-    max-height: 200px;
     color: white;
     justify-self: center;
     height: fit-content;
     margin-top: 10px;
     margin-bottom: 10px;
+    word-break: break-all;
 
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
     text-overflow: ellipsis;
     overflow: hidden;
-      display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
     line-height: 1.2em;
-    max-height: 4.8em;
+    max-height: 3.6em;
 }
 
 .shop .body .item .price{
