@@ -116,6 +116,7 @@ export default function Pay(props){
                 <Item 
                     itemInfo = {item}
                     key = {item.cart_id}
+                    setTotalPrice = {setTotalPrice}
                 />
             )}
         </div>
