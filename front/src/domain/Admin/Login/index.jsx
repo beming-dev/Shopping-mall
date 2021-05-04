@@ -5,27 +5,44 @@ function onSubmit(){
 
 }
 
-export default function Login(){
+export default function Login(props){
     const [loginInfo, setLoginInfo] = useState({'id': '', 'pw': ''});
 
     function onChange(e){
-        let my = loginInfo;
-        my[e.target.name] = e.target.value;
-        setLoginInfo(my);
-        console.log(my);
+        setLoginInfo({
+            ...loginInfo,
+            [e.target.name]:e.target.value
+        });
     }
 
-    useEffect(() => {
+    function onSubmit(e){
+        e.preventDefault();
 
-    }, [loginInfo])
+        const data = loginInfo;
+        fetch("https://localhost:3001/admin/Login", {
+            credentials: 'include',
+            method: 'post',
+            headers: {"Content-Type": "application/json"},
+            body:JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(result => {
+            if(result.login){
+                props.setLogin(true);
+                alert("login success");
+            }else{
+                alert("login false");
+            }
+        })
+    }
 
     return(
         <div className="admin-login">
-            <form action="https://localhost:3001/admin/Login" method="post" className="login-box">
+            <form onSubmit = {onSubmit} className="login-box">
                 <label htmlFor="admin-id">id</label>
                 <input type="text" id="admin-id" name="id" value={loginInfo.id} onChange={onChange}/>
                 <label htmlFor="admin-pw">password</label>
-                <input type="text" id="admin-pw" name="pw" value={loginInfo.id} onChange={onChange}/>
+                <input type="password" id="admin-pw" name="pw" value={loginInfo.pw} onChange={onChange}/>
 
                 <input type="submit" className = "submit"/>
             </form>

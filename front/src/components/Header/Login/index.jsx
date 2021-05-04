@@ -38,7 +38,7 @@ class Login extends React.Component {
     fetch('https://localhost:3001/process_login',{
         method:"post",
         credentials: 'include',
-        headers: { "Content-Type":  "application/json" },
+        headers: { "":  "application/json" },
         body: JSON.stringify(data),	
     })
     .then(res => res.json())
