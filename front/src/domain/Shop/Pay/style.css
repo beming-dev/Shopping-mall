@@ -34,6 +34,26 @@
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pay .productInfo .item .right .name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pay .productInfo .item .right .description{
+    width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pay .productInfo .item .right .count{
+    width: 30px;
 }
 
 .pay .payInfo{

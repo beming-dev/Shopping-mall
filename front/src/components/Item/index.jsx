@@ -6,6 +6,7 @@ import './style.css'
 class Item extends React.Component{
     constructor(props){
         super(props);
+        console.log(props);
         this.onCountClick = this.onCountClick.bind(this);
         this.onCountBlur = this.onCountBlur.bind(this);
         this.onCountBlurOne = this.onCountBlurOne.bind(this);
@@ -14,8 +15,6 @@ class Item extends React.Component{
             count: this.props.itemInfo.count || 1,
         }
         if(this.props.basket){
-            let count = document.querySelector('.count-invisible');
-            console.log(count);
             this.description = (<div></div>);
         }else{
             this.description = (<div className="description">{this.props.itemInfo.description}</div>);

@@ -18,6 +18,7 @@ export default function Pay(props){
         buyer_postcode: '',
     }
 
+    const[basket, setBasket] = useState(false);
     const[product, setProduct] = useState([{}]);
     const[user, setUser] = useState({});
     const[totalPrice, setTotalPrice] = useState(0);
@@ -37,6 +38,7 @@ export default function Pay(props){
 
     useEffect(() =>{
         if(props.match.params.id == 'basket'){
+            setBasket(true);
             fetch("https://localhost:3001/api/basket", {
                 credentials: 'include',
                 method:"post",
@@ -45,7 +47,6 @@ export default function Pay(props){
             .then(data => {
                 setProduct(data);
                 let i=0;
-                console.log(data);
                 data.forEach(element => {
                     i += element.price * element.count;
                 });
@@ -92,20 +93,18 @@ export default function Pay(props){
         const {IMP} = window;
         IMP.init('imp85727494');
 
-        IMP.request_pay(payData, callback);
-
-        function callback(response){
-        const {
+        IMP.request_pay(payData, function(response){
+            const {
             success,
             error_msg,
             } = response;
         
             if (success) {
-            alert('결제 성공');
+                alert("success");
             } else {
-            alert(`결제 실패: ${error_msg}`);
+                alert(error_msg);
             }
-        }
+        });
     }
 
     return (
@@ -117,13 +116,14 @@ export default function Pay(props){
                     itemInfo = {item}
                     key = {item.cart_id}
                     setTotalPrice = {setTotalPrice}
+                    basket={basket}
                 />
             )}
         </div>
 
         <div className="total-price">total amount : {totalPrice}won</div>
 
-        <form action="" className="payInfo">
+        <div className="payInfo" >
             <label htmlFor="buyer_name">name</label>
             <input type="text" id="buyer_name"/>
             <label htmlFor="buyer_tel">tel</label>
@@ -140,7 +140,7 @@ export default function Pay(props){
             <input type="text" id="address" placeholder="주소"/><br/>
             <input type="text" id="detailAddress" placeholder="상세주소"/>
             <input type="submit" onClick={onSubmit}/>
-        </form>
+        </div>
     </div>
     )
 }

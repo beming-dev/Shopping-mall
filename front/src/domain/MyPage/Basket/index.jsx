@@ -24,7 +24,8 @@ export default function Basket(){
     // why
     useEffect(() => {
         let i=0;
-        myBasket.forEach((item, ii) =>{
+        myBasket.forEach((item) =>{
+            console.log(item);
             i+= item.price * item.count;
         });
         setTotalPrice(i);
@@ -35,7 +36,7 @@ export default function Basket(){
             {myBasket.map(basketItem => 
             <Item 
             key={basketItem.cart_id}
-            itemInfo={basketItem} 
+            itemInfo={basketItem}
             basket={true}
             />)}
 
