@@ -16,6 +16,7 @@ const http = require("http");
 const multer = require('multer');
 const path = require('path');
 const { pathToFileURL } = require("url");
+const { default: axios } = require("axios");
 
 const upload = multer({
   storage:multer.diskStorage({
@@ -283,11 +284,55 @@ app.post("/seller-registration", async (req, res) => {
 
 app.post('/product-registration', upload.single('productImage'), (req, res) =>{
   const query = `insert into product values(null, ?, ?, ?, ?, ?)`
-  console.log(req.body);
   try{
     pool.query(query, [req.body.productPrice, req.body.productName, req.body.productInformation, req.file.filename, req.session.loginID]);
     res.send(true);
   }catch(err){
+    return res.status(500).json(err);
+  }
+});
+
+app.post('/payments/complete', async (req, res) => {
+  try{
+    const {imp_uid, merchant_uid} = req.body;
+    
+    const getToken = await axios({
+      url: "https://api.iamport.kr/users/getToken",
+      method: "post",
+      headers: {"Content-Type": "application/json"},
+      data:{
+        imp_key: "0230696647475507",
+        imp_secret: "bFHQ41I8g59U4MyuxZg6ziOpNzFw2E0dkI4oKMx0SGUWstqZtH62ZVrNv6jxKkL52QtMC1MvHHraaSaD"
+      }
+    });
+    const {access_token} = getToken.data.response;
+
+    const getPaymentData = await axios({
+      url:`https://api.iamport.kr/payments/${imp_uid}`,
+      method: "get",
+      headers: {"Authorization": access_token}
+    });
+
+    const paymentData = getPaymentData.data.response;
+
+    const order = await pool.query(
+      `select * from orders where user_id=?`,
+      [req.session.loginID]
+    )
+
+    console.log(order[0]);
+
+  } catch(err){
+    res.status(400).send(err);
+  }
+});
+
+app.post("/process_before_pay", async(req, res) => {
+  try{
+    const query = `insert into orders values (null, ?, ?)`
+    const result = pool.query(query, [req.session.loginID, req.body.amount]);
+  }
+  catch{
     return res.status(500).json(err);
   }
 })

@@ -90,21 +90,43 @@ export default function Pay(props){
         
         payData.amount = totalPrice;
 
+        fetch("https://localhost:3001/process_before_pay", {
+            method:"post",
+            credentials:'include',
+            headers: {"Content-Type": "application/json"},
+            body:JSON.stringify(payData),
+        })
+
         const {IMP} = window;
         IMP.init('imp85727494');
 
-        IMP.request_pay(payData, function(response){
+        IMP.request_pay(payData, callback);
+
+        function callback(response){
             const {
             success,
             error_msg,
             } = response;
         
             if (success) {
-                alert("success");
+                alert("pay complete");
+                fetch("https://localhost:3001/payments/complete", {
+                    credentials: 'include',
+                    method: 'post',
+                    headers: {"Content-type": "application/json"},
+                    body:JSON.stringify({
+                        "imp_uid": response.imp_uid,
+                        "merchant_uid": response.merchant_uid
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                })
             } else {
                 alert(error_msg);
             }
-        });
+        }
     }
 
     return (
