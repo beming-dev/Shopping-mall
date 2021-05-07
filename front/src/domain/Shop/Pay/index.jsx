@@ -8,7 +8,7 @@ export default function Pay(props){
     let payData = {
         pg:'kakaopay',
         pay_method:'card',
-        merchant_uid:'merchant_' + new Date().getTime(),
+        merchant_uid: new Date().getTime(),
         amount: 1,
         name: 'test',
         buyer_name: '',
@@ -24,16 +24,26 @@ export default function Pay(props){
     const[totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
-        fetch("https://localhost:3001/api/loginInfo",{
+        fetch("https://localhost:3001/api/islogined", {
             credentials: 'include',
-            method:"post",
+            method: 'post'
         })
         .then(res => res.json())
-        .then(data =>{
-            setUser(data[0]);
-            payData.buyer_name = data[0].id;
-            payData.buyer_email = data[0].email;
-        })
+        .then(login => {
+            if(!login) window.location.href = "https://localhost:3000/home"
+            else{
+                fetch("https://localhost:3001/api/loginInfo",{
+                credentials: 'include',
+                method:"post",
+                })
+                .then(res => res.json())
+                .then(data =>{
+                    setUser(data[0]);
+                    payData.buyer_name = data[0].id;
+                    payData.buyer_email = data[0].email;
+                })
+                }
+            })
     }, []);
 
     useEffect(() =>{
@@ -120,8 +130,17 @@ export default function Pay(props){
                     })
                 })
                 .then(res => res.json())
-                .then(data => {
-                    console.log(data);
+                .then(result => {
+                    if(result.status === "success"){
+                        fetch("https:/localhost:3001/process_pay_complete", {
+                            credentials: 'include',
+                            method: "post",
+                            headers: {"Content-Type": "application/json"},
+                            body: product
+                        })
+                    }else{
+
+                    }
                 })
             } else {
                 alert(error_msg);
@@ -161,7 +180,7 @@ export default function Pay(props){
             
             <input type="text" id="address" placeholder="주소"/><br/>
             <input type="text" id="detailAddress" placeholder="상세주소"/>
-            <input type="submit" onClick={onSubmit}/>
+            <input type="submit" onClick={onSubmit} className="pay_submit" value="pay"/>
         </div>
     </div>
     )

@@ -94,6 +94,23 @@
     margin-bottom: 10px;
 }
 
+.pay .payInfo .pay_submit{
+    margin-top: 50px;
+    width: 100px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 10px;
+    background: pink;
+    color: white;
+    align-self: center;
+    transition-duration: 1s;
+}
+
+.pay .payInfo .pay_submit:hover{
+    background: white;
+    color: pink;
+}
+
 .pay .total-price{
     color: white;
     font-size: 30px;

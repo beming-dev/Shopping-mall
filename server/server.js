@@ -315,12 +315,19 @@ app.post('/payments/complete', async (req, res) => {
 
     const paymentData = getPaymentData.data.response;
 
+    //price falsification verification
     const order = await pool.query(
-      `select * from orders where user_id=?`,
-      [req.session.loginID]
+      `select * from orders where user_id=? and merchant_uid=?`,
+      [req.session.loginID, merchant_uid]
     )
 
-    console.log(order[0]);
+    if(order[0][0].price === paymentData.amount){
+      //payment complete
+      res.json({status: "success", message: "pay success"});
+    }else{
+      //forged payment attempts
+      throw { status: "forgery", message: ""}
+    }
 
   } catch(err){
     res.status(400).send(err);
@@ -329,10 +336,20 @@ app.post('/payments/complete', async (req, res) => {
 
 app.post("/process_before_pay", async(req, res) => {
   try{
-    const query = `insert into orders values (null, ?, ?)`
-    const result = pool.query(query, [req.session.loginID, req.body.amount]);
+    const query = `insert into orders values (null, ?, ?, ?)`
+    const result = pool.query(query, [req.session.loginID, req.body.amount, req.body.merchant_uid]);
   }
   catch{
+    return res.status(500).json(err);
+  }
+});
+
+app.post("/process_pay_complement", async(req, res) => {
+  try{
+    const query = `insert into pay values(null, ?, ?, ?, ?)`
+    pool.query(query, [req.session.loginID, req.body.id, 1, product.amount]);
+  }
+  catch(err){
     return res.status(500).json(err);
   }
 })
