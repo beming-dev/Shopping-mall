@@ -34,7 +34,6 @@ export default function MyInfo() {
     } else {
       labelPwc.classList.remove("correspond");
       setSubmit(true);
-      console.log(submit);
     }
   }
 
@@ -46,7 +45,6 @@ export default function MyInfo() {
       .then((res) => res.json())
       .then((loginInfo) => {
         setLoginInfo(loginInfo[0]);
-        console.log(loginInfo[0]);
       });
   }, []);
   return (

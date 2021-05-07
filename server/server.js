@@ -276,7 +276,6 @@ app.post("/seller-registration", async (req, res) => {
   let query = `update user set seller=1 where num=?`;
   try {
     pool.query(query, [req.session.loginId]);
-    console.log(2);
   } catch {
     return res.status(500).json(err);
   }

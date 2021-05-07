@@ -25,7 +25,6 @@ export default function Basket(){
     useEffect(() => {
         let i=0;
         myBasket.forEach((item) =>{
-            console.log(item);
             i+= item.price * item.count;
         });
         setTotalPrice(i);

@@ -6,7 +6,6 @@ import './style.css'
 class Item extends React.Component{
     constructor(props){
         super(props);
-        console.log(props);
         this.onCountClick = this.onCountClick.bind(this);
         this.onCountBlur = this.onCountBlur.bind(this);
         this.onCountBlurOne = this.onCountBlurOne.bind(this);
@@ -34,7 +33,6 @@ class Item extends React.Component{
             e.target.value = 10;
         }
         if(this.props.itemInfo.count !== (e.target.value*1)){
-            console.log(this.props.itemInfo.count, e.target.value);
             let data = {
                 count : e.target.value,
                 id: this.props.itemInfo.cart_id,
