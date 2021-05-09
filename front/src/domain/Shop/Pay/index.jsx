@@ -132,12 +132,7 @@ export default function Pay(props){
                 .then(res => res.json())
                 .then(result => {
                     if(result.status === "success"){
-                        fetch("https:/localhost:3001/process_pay_complete", {
-                            credentials: 'include',
-                            method: "post",
-                            headers: {"Content-Type": "application/json"},
-                            body: product
-                        })
+                        
                     }else{
 
                     }

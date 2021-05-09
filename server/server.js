@@ -343,16 +343,6 @@ app.post("/process_before_pay", async(req, res) => {
   }
 });
 
-app.post("/process_pay_complement", async(req, res) => {
-  try{
-    const query = `insert into pay values(null, ?, ?, ?, ?)`
-    pool.query(query, [req.session.loginID, req.body.id, 1, product.amount]);
-  }
-  catch(err){
-    return res.status(500).json(err);
-  }
-})
-
 https.createServer(options, app).listen(port, () => {
   console.log(`Listening on potr ${port}`);
 });
