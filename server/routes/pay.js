@@ -48,7 +48,7 @@ router.post('/complete', async (req, res) => {
       const query = `insert into orders values (null, ?, ?, ?)`
       const result = pool.query(query, [req.session.loginID, req.body.amount, req.body.merchant_uid]);
     }
-    catch{
+    catch(err){
       return res.status(500).json(err);
     }
   });

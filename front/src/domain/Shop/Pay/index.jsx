@@ -20,7 +20,7 @@ export default function Pay(props){
 
     const[basket, setBasket] = useState(false);
     const[product, setProduct] = useState([{}]);
-    const[user, setUser] = useState({});
+    const[key, setKey] = useState(0);
     const[totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
@@ -38,7 +38,6 @@ export default function Pay(props){
                 })
                 .then(res => res.json())
                 .then(data =>{
-                    setUser(data[0]);
                     payData.buyer_name = data[0].id;
                     payData.buyer_email = data[0].email;
                 })
@@ -147,10 +146,10 @@ export default function Pay(props){
     <div className="pay">
 
         <div className="productInfo">
-            {product.map(item => 
+            {product.map((item, index) => 
                 <Item 
                     itemInfo = {item}
-                    key = {item.cart_id}
+                    key = {index}
                     setTotalPrice = {setTotalPrice}
                     basket={basket}
                 />
