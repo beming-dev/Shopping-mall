@@ -100,7 +100,7 @@ export default function Pay(props){
         
         payData.amount = totalPrice;
 
-        fetch("https://localhost:3001/process_before_pay", {
+        fetch("https://localhost:3001/pay/process_before", {
             method:"post",
             credentials:'include',
             headers: {"Content-Type": "application/json"},
@@ -120,7 +120,7 @@ export default function Pay(props){
         
             if (success) {
                 alert("pay complete");
-                fetch("https://localhost:3001/payments/complete", {
+                fetch("https://localhost:3001/pay/complete", {
                     credentials: 'include',
                     method: 'post',
                     headers: {"Content-type": "application/json"},

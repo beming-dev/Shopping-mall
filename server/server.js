@@ -7,17 +7,12 @@ const MySQLStore = require("express-mysql-session")(session);
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
-const e = require("express");
-const cookie = require("cookie");
-const cookieParser = require("cookie-parser");
-const cookieSession = require("cookie-session");
 const https = require("https");
-const http = require("http");
 const multer = require('multer');
 const path = require('path');
-const { pathToFileURL } = require("url");
 const { default: axios } = require("axios");
 
+//multer
 const upload = multer({
   storage:multer.diskStorage({
     destination: function(req, file, cb){
@@ -30,11 +25,13 @@ const upload = multer({
   })
 });
 
+//https
 const options = {
   key: fs.readFileSync("../front/localhost-key.pem"),
   cert: fs.readFileSync("../front/localhost.pem"),
 };
 
+//database
 const dbInfo = JSON.parse(fs.readFileSync(__dirname + "/db.json", "UTF-8"));
 const pool = mysql.createPool({
   host: dbInfo.host,
@@ -43,25 +40,19 @@ const pool = mysql.createPool({
   password: dbInfo.pw,
 });
 
+//session
 let sessionStore = new MySQLStore({}, pool);
-
-const port = 3001;
-
 app.use(
-  cookieParser(process.env.COOKIE_SECRET, { sameSite: "none", secure: true })
+  session({
+    secret: "asdfasffdsa",
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+  })
 );
 
+//proxy, cors
 app.set("trust proxy", 1);
-// app.use(
-//     cookieSession({
-//       name: "__session",
-//       keys: ["key1"],
-//         maxAge: 24 * 60 * 60 * 100,
-//         secure: true,
-//         httpOnly: true,
-//         sameSite: 'none'
-//     })
-// );
 
 app.use(
   cors({
@@ -75,58 +66,14 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.use(
-  session({
-    secret: "asdfasffdsa",
-    resave: false,
-    saveUninitialized: true,
-    store: sessionStore,
-  })
-);
+
+
+//start
+const port = 3001;
 
 app.use("/admin", require("./routes/admin"));
-
-app.get("/api/shop", (req, res) => {});
-
-app.post("/api/isLogined", (req, res) => {
-  if (req.session.login == null) {
-    res.send(false);
-  } else {
-    res.send(req.session.login);
-  }
-});
-
-app.post("/api/loginInfo", async (req, res) => {
-  let query = `select * from user where num=${req.session.loginID}`;
-  try {
-    const data = await pool.query(query);
-    return res.json(data[0]);
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-});
-
-app.post("/api/itemInfo", async (req, res) => {
-  const query = "select * from product where id = ?";
-
-  try {
-    const data = await pool.query(query, [req.body.id]);
-    return res.send(data[0]);
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-});
-
-app.post("/api/basket", async (req, res) => {
-  const query =
-    "select * from basket left join product on basket.product_id=product.id where user_id=?";
-  try {
-    const data = await pool.query(query, [req.session.loginID]);
-    res.send(data[0]);
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-});
+app.use("/pay", require("./routes/pay"));
+app.use("/api", require("./routes/api"));
 
 app.get("/shop", async (req, res) => {
   const query = "SELECT * FROM product";
@@ -287,58 +234,6 @@ app.post('/product-registration', upload.single('productImage'), (req, res) =>{
     pool.query(query, [req.body.productPrice, req.body.productName, req.body.productInformation, req.file.filename, req.session.loginID]);
     res.send(true);
   }catch(err){
-    return res.status(500).json(err);
-  }
-});
-
-app.post('/payments/complete', async (req, res) => {
-  try{
-    const {imp_uid, merchant_uid} = req.body;
-    
-    const getToken = await axios({
-      url: "https://api.iamport.kr/users/getToken",
-      method: "post",
-      headers: {"Content-Type": "application/json"},
-      data:{
-        imp_key: "0230696647475507",
-        imp_secret: "bFHQ41I8g59U4MyuxZg6ziOpNzFw2E0dkI4oKMx0SGUWstqZtH62ZVrNv6jxKkL52QtMC1MvHHraaSaD"
-      }
-    });
-    const {access_token} = getToken.data.response;
-
-    const getPaymentData = await axios({
-      url:`https://api.iamport.kr/payments/${imp_uid}`,
-      method: "get",
-      headers: {"Authorization": access_token}
-    });
-
-    const paymentData = getPaymentData.data.response;
-
-    //price falsification verification
-    const order = await pool.query(
-      `select * from orders where user_id=? and merchant_uid=?`,
-      [req.session.loginID, merchant_uid]
-    )
-
-    if(order[0][0].price === paymentData.amount){
-      //payment complete
-      res.json({status: "success", message: "pay success"});
-    }else{
-      //forged payment attempts
-      throw { status: "forgery", message: ""}
-    }
-
-  } catch(err){
-    res.status(400).send(err);
-  }
-});
-
-app.post("/process_before_pay", async(req, res) => {
-  try{
-    const query = `insert into orders values (null, ?, ?, ?)`
-    const result = pool.query(query, [req.session.loginID, req.body.amount, req.body.merchant_uid]);
-  }
-  catch{
     return res.status(500).json(err);
   }
 });
