@@ -15,7 +15,7 @@ class Body extends React.Component {
     })
       .then((res) => res.json())
       .then((user) => {
-        if (user[0].seller == 1) {
+        if (user[0].seller === 1) {
           this.setState({
             propuctRegistration: (
               <Link to="/product-registration">판매 상품 등록</Link>

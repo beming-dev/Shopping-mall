@@ -14,6 +14,7 @@ function MyOrder() {
         setOrderList(data);
       });
   }, []);
+  console.log(orderList);
   return (
     <div className="my-order">
       <div className="text">주문 내역</div>

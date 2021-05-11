@@ -46,7 +46,7 @@ export default function Pay(props){
     }, []);
 
     useEffect(() =>{
-        if(props.match.params.id == 'basket'){
+        if(props.match.params.id === 'basket'){
             setBasket(true);
             fetch("https://localhost:3001/api/basket", {
                 credentials: 'include',
