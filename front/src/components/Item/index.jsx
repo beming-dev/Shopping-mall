@@ -33,6 +33,7 @@ class Item extends React.Component{
             e.target.value = 10;
         }
         if(this.props.itemInfo.count !== (e.target.value*1)){
+            this.props.setCount(e.target.value*1);
             let data = {
                 count : e.target.value,
                 id: this.props.itemInfo.cart_id,
@@ -61,6 +62,7 @@ class Item extends React.Component{
             e.target.value = 10;
             this.setState({count: 10});
         }
+        this.props.setCount(e.target.value*1);
         this.props.setTotalPrice(this.props.itemInfo.price * e.target.value);
     }
 

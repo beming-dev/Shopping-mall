@@ -20,7 +20,7 @@ export default function Pay(props){
 
     const[basket, setBasket] = useState(false);
     const[product, setProduct] = useState([{}]);
-    const[key, setKey] = useState(0);
+    const[count, setCount] = useState(1);
     const[totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
@@ -74,11 +74,23 @@ export default function Pay(props){
             })
             .then(res => res.json())
             .then(data => {
-                setProduct(data);
+                setProduct([{
+                    ...data[0],
+                    "count": count,
+                }]);
                 setTotalPrice(data[0].price);
             })
         }
     }, []);
+
+    useEffect(() => {
+        if(props.match.params.id !== "basket"){
+            setProduct([{
+                ...product[0],
+                "count": count,
+            }]);
+        }
+    }, [count]);
 
     function onClick(){
         let daum = document.querySelector(".daum");
@@ -147,12 +159,14 @@ export default function Pay(props){
     <div className="pay">
 
         <div className="productInfo">
+            {console.log(product)}
             {product.map((item, index) => 
                 <Item 
                     itemInfo = {item}
                     key = {index}
                     setTotalPrice = {setTotalPrice}
                     basket={basket}
+                    setCount={setCount}
                 />
             )}
         </div>
