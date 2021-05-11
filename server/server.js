@@ -10,7 +10,6 @@ const crypto = require("crypto");
 const https = require("https");
 const multer = require('multer');
 const path = require('path');
-const { default: axios } = require("axios");
 
 //multer
 const upload = multer({

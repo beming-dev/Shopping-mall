@@ -1,5 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const { default: axios } = require("axios");
+const mysql = require("mysql2/promise");
+const fs = require('fs');
+
+//database
+const dbInfo = JSON.parse(fs.readFileSync(__dirname + "../../db.json", "UTF-8"));
+const pool = mysql.createPool({
+  host: dbInfo.host,
+  user: dbInfo.user,
+  database: dbInfo.database,
+  password: dbInfo.pw,
+});
 
 router.post('/complete', async (req, res) => {
     try{
@@ -29,10 +41,19 @@ router.post('/complete', async (req, res) => {
         `select * from orders where user_id=? and merchant_uid=?`,
         [req.session.loginID, merchant_uid]
       )
-  
+        
+      console.log(order[0][0].price, paymentData.amount)
       if(order[0][0].price === paymentData.amount){
         //payment complete
-        res.json({status: "success", message: "pay success"});
+        req.body.merchant.map(async(item)=>{
+          try{
+            const query = `insert into pay value(null, ?, ?, ?, ?)`;
+            await pool.query(query, [req.session.loginID, item.product_id, item.count, item.price]);
+            res.json({status: "success", message: "pay success"});
+          }catch(err){
+            return res.status(500).json(err);
+          }
+        })
       }else{
         //forged payment attempts
         throw { status: "forgery", message: ""}

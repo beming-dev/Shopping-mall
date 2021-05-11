@@ -125,7 +125,8 @@ export default function Pay(props){
                     headers: {"Content-type": "application/json"},
                     body:JSON.stringify({
                         "imp_uid": response.imp_uid,
-                        "merchant_uid": response.merchant_uid
+                        "merchant_uid": response.merchant_uid,
+                        "merchant": product
                     })
                 })
                 .then(res => res.json())
