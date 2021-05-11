@@ -81,6 +81,7 @@ export default function Pay(props){
                 setTotalPrice(data[0].price);
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -90,6 +91,7 @@ export default function Pay(props){
                 "count": count,
             }]);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [count]);
 
     function onClick(){

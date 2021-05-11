@@ -6,6 +6,7 @@ const adminInfo = JSON.parse(fs.readFileSync(__dirname + "../../admin.json", "UT
 
 router.post("/login", (req, res) => {
     if(req.body.id === adminInfo.adminID && req.body.pw === adminInfo.adminPW){
+        req.session.adminLogin = true;
         res.json({login:true});
     }else{
         res.json({login:false});

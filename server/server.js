@@ -10,6 +10,23 @@ const crypto = require("crypto");
 const https = require("https");
 const multer = require('multer');
 const path = require('path');
+const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
+
+app.use(
+  cookieParser(process.env.COOKIE_SECRET, { sameSite: "none", secure: true })
+)
+ 
+// app.use(
+//     cookieSession({
+//       name: "__session",
+//       keys: ["key1"],
+//         maxAge: 24 * 60 * 60 * 100,
+//         secure: true,
+//         httpOnly: true,
+//         sameSite: 'none'
+//     })
+// );
 
 //multer
 const upload = multer({
@@ -44,13 +61,17 @@ let sessionStore = new MySQLStore({}, pool);
 app.use(
   session({
     secret: "asdfasffdsa",
-    resave: false,
-    saveUninitialized: true,
+    resave: true,
+    saveUninitialized: false,
     store: sessionStore,
+    cookie:{
+      maxAge:360000
+    }
   })
 );
 
 //proxy, cors
+
 app.set("trust proxy", 1);
 
 app.use(
@@ -168,9 +189,9 @@ app.post("/process_basket", async (req, res) => {
 });
 
 app.post("/process_logout", async (req, res) => {
-  req.session.login = false;
+  req.session.login = null;
   req.session.loginID = null;
-  res.send(req.session.login);
+  res.send(false);
 });
 
 app.post("/process_register", async (req, res) => {

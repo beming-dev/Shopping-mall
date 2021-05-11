@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import './style.css'
 
-function onSubmit(){
-
-}
-
 export default function Login(props){
     const [loginInfo, setLoginInfo] = useState({'id': '', 'pw': ''});
+
+    useEffect(()=>{
+        if(props.isLogined){
+            window.location.href = "https://localhost:3000/beming/admin/home";
+        }
+    }, []);
 
     function onChange(e){
         setLoginInfo({
@@ -19,7 +21,7 @@ export default function Login(props){
         e.preventDefault();
 
         const data = loginInfo;
-        fetch("https://localhost:3001/admin/Login", {
+        fetch("https://localhost:3001/admin/login", {
             credentials: 'include',
             method: 'post',
             headers: {"Content-Type": "application/json"},

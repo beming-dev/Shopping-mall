@@ -13,7 +13,7 @@ const pool = mysql.createPool({
 });
 
 router.post("/isLogined", (req, res) => {
-if (req.session.login == null) {
+if (!req.session.login) {
     res.send(false);
 } else {
     res.send(req.session.login);
@@ -51,5 +51,10 @@ try {
     return res.status(500).json(err);
 }
 });
+
+router.post("/adminLogined", (req, res) => {
+    if(req.session.adminLogin) res.send(true);
+    else res.send(false);
+})
 
 module.exports = router;
