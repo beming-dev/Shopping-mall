@@ -1,15 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import './style.css'
 
 export default function Login(props){
     const [loginInfo, setLoginInfo] = useState({'id': '', 'pw': ''});
-
-    useEffect(()=>{
-        if(props.isLogined){
-            window.location.href = "https://localhost:3000/beming/admin/home";
-        }
-    }, []);
-
     function onChange(e){
         setLoginInfo({
             ...loginInfo,
@@ -30,8 +23,8 @@ export default function Login(props){
         .then(res => res.json())
         .then(result => {
             if(result.login){
-                props.setLogin(true);
                 alert("login success");
+                window.location.href="https://localhost:3000/beming/admin/home";
             }else{
                 alert("login false");
             }

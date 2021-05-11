@@ -11,6 +11,10 @@ router.post("/login", (req, res) => {
     }else{
         res.json({login:false});
     }
-})
+});
+
+router.post("/logout", (req, res) => {
+    req.session.adminLogin = false;
+});
 
 module.exports = router;

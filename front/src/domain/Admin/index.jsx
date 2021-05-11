@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Route} from 'react-router-dom'
+import {Route, Redirect} from 'react-router-dom'
 
 import Login from './Login/index'
 import Home from './Home/index'
@@ -17,12 +17,16 @@ export default function Admin(){
         .then(login =>{
             setLogin(login);
         })
-    }, [])
+    }, [login])
 
     return(
         <div className="admin">
-            <Route exact path="/beming/admin" render={() => <Login setLogin={setLogin} isLogined={login}/>}/>
-            <Route path="/beming/admin/home" render={() => <Home isLogined={login}/>}/>
+            <Route path="/beming/admin">
+                {login ? <Redirect to="/beming/admin/home" /> : <Login />}
+            </Route>
+            <Route path="/beming/admin/home">
+                {login ? <Home /> : <Redirect to="/beming/admin" />}
+            </Route>
         </div>
     )   
 }
