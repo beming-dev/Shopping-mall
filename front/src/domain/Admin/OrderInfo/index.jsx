@@ -12,6 +12,7 @@ export default function Home(props){
     const [page, setPage] = useState(1);
 
     useEffect(() => {
+        let p = paging;
         fetch("https://localhost:3001/admin/payCount", {
             credentials: 'include',
             method: 'post'
@@ -19,12 +20,10 @@ export default function Home(props){
         .then(res => res.json())
         .then(count => {
             for(let i=1; i<=(count.count/10 + 1); i++){
-                let p = paging;
                 p.push(i);
-                setPaging(p);
+                setPaging([...p]);
             }
         })
-
         return ()=>setPage([]) 
     }, []);
 
@@ -39,7 +38,7 @@ export default function Home(props){
         .then(data => {
             setPayData(data);
         })
-    }, [page]);
+    }, []);
 
     function onPagingClick(e){
         setPage(e.target.innerText*1);
@@ -54,6 +53,7 @@ export default function Home(props){
                     <ItemAdmin payData={payInfo}/>
                 )}
                 <div className="paging">
+                    {console.log(paging)}
                     {paging.map((i)=>
                         <div onClick={onPagingClick}>{i}</div>
                     )}
