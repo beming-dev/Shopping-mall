@@ -47,7 +47,7 @@ router.post('/complete', async (req, res) => {
         req.body.merchant.map(async(item)=>{
           try{
             const query = `insert into pay value(null, ?, ?, ?, ?)`;
-            await pool.query(query, [req.session.loginID, item.id, item.count, item.price]);
+            await pool.query(query, [req.session.loginID, item.id, item.count, item.price*item.count]);
             res.json({status: "success", message: "pay success"});
           }catch(err){
             return res.status(500).json(err);

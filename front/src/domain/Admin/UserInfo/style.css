@@ -1,0 +1,32 @@
+.admin-home .body{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.admin-home .body .item-admin{
+    margin: 10px 0;
+}
+
+.admin-home .body table{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-home .body .user-table{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-home .body .user-table .user-admin{
+    margin: 10px 0;
+}

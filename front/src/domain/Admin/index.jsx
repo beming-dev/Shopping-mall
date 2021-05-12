@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {Route, Redirect} from 'react-router-dom'
 
 import Login from './Login/index'
-import Home from './Home/index'
+import UserInfo from './UserInfo/index'
+import OrderInfo from './OrderInfo/index'
 
 import './style.css'
 
@@ -21,12 +22,14 @@ export default function Admin(){
 
     return(
         <div className="admin">
-            <Route path="/beming/admin">
+            <Route exact path="/beming/admin">
                 {login ? <Redirect to="/beming/admin/home" /> : <Login />}
             </Route>
             <Route path="/beming/admin/home">
-                {login ? <Home /> : <Redirect to="/beming/admin" />}
+                {login ? <Redirect to="/beming/admin/userInfo/1" /> : <Redirect to="/beming/admin" />}
             </Route>
+            <Route path="/beming/admin/userInfo" component={UserInfo}></Route>
+            <Route path="/beming/admin/orderInfo" component={OrderInfo}></Route>
         </div>
     )   
 }

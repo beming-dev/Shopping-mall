@@ -1,11 +1,12 @@
 import './style.css'
+import {Link} from 'react-router-dom'
 
 export default function NavAdmin(props){
     return(
         <ul className="nav-admin">
-            <li>회원정보관리</li>
-            <li>주문관리</li>
-            <li>공지사항</li>
+            <Link to="/beming/admin/userInfo">회원정보관리</Link>
+            <Link to="/beming/admin/orderInfo">주문관리</Link>
+            <Link to="#!">공지사항</Link>
         </ul>
     )
 }
