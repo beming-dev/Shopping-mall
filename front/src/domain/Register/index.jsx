@@ -106,7 +106,6 @@ onClick(e){
         .then(res => res.json())
         .then(result => {
             if(result.result){
-                console.log(result);
                 alert("register suceess");
                 window.location.href = "https://localhost:3000/home";
             }

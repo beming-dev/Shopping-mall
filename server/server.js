@@ -197,8 +197,6 @@ app.post("/process_logout", async (req, res) => {
 app.post("/process_register", async (req, res) => {
   let { id, pw, email, birth } = req.body.data;
 
-  console.log(id, pw, email, birth);
-
   let query = `insert into user value(null, ?, ?, ?, ?, ?, 0)`;
 
   crypto.randomBytes(64, (err, buf) => {
