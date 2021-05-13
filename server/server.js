@@ -195,9 +195,11 @@ app.post("/process_logout", async (req, res) => {
 });
 
 app.post("/process_register", async (req, res) => {
-  let { id, pw, email, birth } = req.body;
+  let { id, pw, email, birth } = req.body.data;
 
-  let query = `insert into user value(null, ?, ?, ?, ?, ?)`;
+  console.log(id, pw, email, birth);
+
+  let query = `insert into user value(null, ?, ?, ?, ?, ?, 0)`;
 
   crypto.randomBytes(64, (err, buf) => {
     crypto.pbkdf2(
@@ -215,14 +217,13 @@ app.post("/process_register", async (req, res) => {
             birth,
             buf.toString("base64"),
           ]);
-          res.setHeader("Content-Type", 'application/json');
+          res.json({"result": true});
         } catch (err) {
           return res.status(500).json(err);
         }
       }
     );
   });
-  res.redirect("https://localhost:3000/home");
 });
 
 app.post("/process_update_info", async (req, res) => {

@@ -14,6 +14,7 @@ class Register extends React.Component {
         "pw": '',
         "pwc": '',
         "email": '',
+        "birth": ''
     };
     this.checkID = this.checkID.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -95,6 +96,21 @@ onClick(e){
         e.stopPropagation();
         return false;
     }
+
+    fetch("https://localhost:3001/process_register", {
+            credentials: 'include',
+            method: "post",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({"data": this.state})
+        })
+        .then(res => res.json())
+        .then(result => {
+            if(result.result){
+                console.log(result);
+                alert("register suceess");
+                window.location.href = "https://localhost:3000/home";
+            }
+        })
   }
 
   onBlur(){
@@ -110,22 +126,13 @@ onClick(e){
       }
     }
 
-    // onSubmit(){
-    //     fetch("https://localhost:3001/process_register", {
-    //         credentials: 'include',
-    //         method: "post",
-    //         headers: {"Content-Type": "application/json"},
-    //         body: JSON.stringify({""})
-    //     })
-    // }
-
   render() {
     return (
       <div className="register-container">
         <Header />
         <Nav />
         <div className="body">
-              <form action="https://localhost:3001/process_register" className="field" method="post">
+            <div className="field">
                   <label htmlFor="id" className="label_id">id</label>
                   <input id="id" name="id" onChange={this.onChange}></input>
                   <button onClick={this.checkID} className="checkID">id check</button>
@@ -136,10 +143,10 @@ onClick(e){
                   <label htmlFor="email" className="label_email" >email</label>
                   <input type="email" id="email" name="email" onChange={this.onChange}></input>
                   <label htmlFor="birth">birth</label>
-                  <input type="date" id="birth" name="birth"></input>
+                  <input type="date" id="birth" name="birth" onChange={this.onChange}></input>
                   
-                  <input type="submit" className="submit" onClick = {this.onClick} ></input>
-              </form>
+                  <input type="submit" className="submit" onClick = {this.onClick}></input>
+            </div>
           </div>
         <Footer />
       </div>

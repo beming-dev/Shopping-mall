@@ -44,12 +44,6 @@ class Item extends React.Component{
                 headers: {"Content-Type": "application/json"},
                 body:JSON.stringify(data),
             })
-            .then(res => res.json())
-            .then(success => {
-                if(success){
-                    window.location.reload();
-                }
-            })
         }
     }
 
