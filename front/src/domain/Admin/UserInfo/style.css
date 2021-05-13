@@ -1,32 +1,65 @@
-.admin-home .body{
+.user-info .body{
     margin: 0;
     width: 100%;
     height: 100%;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 50px;
+    margin-bottom: 100px;
 }
 
-.admin-home .body .item-admin{
+.user-info .body .buttons{
+    margin-bottom: 50px;
+}
+
+.user-info .body .buttons button{
+    width: 100px;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid grey;
+    background: white;
+    margin: 0 5px
+}
+
+.user-info .body .item-admin{
     margin: 10px 0;
 }
 
-.admin-home .body table{
+.user-info .body table{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.admin-home .body .user-table{
+.user-info .body .user-table{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.admin-home .body .user-table .user-admin{
+.user-info .body .user-table .user-admin{
     margin: 10px 0;
 }
+
+.user-info .body .paging{
+    display: flex;
+    margin-top: 50px;
+}
+
+.user-info .body .paging div{
+    margin: 0 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.user-info .body .paging div:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+

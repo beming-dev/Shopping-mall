@@ -215,6 +215,7 @@ app.post("/process_register", async (req, res) => {
             birth,
             buf.toString("base64"),
           ]);
+          res.setHeader("Content-Type", 'application/json');
         } catch (err) {
           return res.status(500).json(err);
         }

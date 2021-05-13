@@ -29,7 +29,7 @@ router.post("/logout", (req, res) => {
 
 router.post("/pay", async(req, res) => {
     const query = `
-    select id, image, name, product.price, count, pay.price  
+    select pay_id, id, image, name, product.price, count, pay.price  
     from pay 
     left join product on pay.product_id = product.id
     limit ${(req.body.page-1)*10}, 10`;
@@ -49,7 +49,16 @@ router.post("/payCount", async(req, res) => {
     }catch(err){
         return res.status(500).json(err);
     }
-})
+});
+
+router.post("/userCount", async(req, res) => {
+    try{
+        let count = await pool.query("select count(*) from user");
+        res.json({"count":count[0][0]["count(*)"]});
+    }catch(err){
+        return res.status(500).json(err);
+    }
+});
 
 router.post("/user", async(req, res) => {
     const query = "select num, id, email, birth from user";
@@ -61,5 +70,21 @@ router.post("/user", async(req, res) => {
         return res.status(500).json(err);
     }
 });
+
+router.post("/user/withdrawal", async(req, res) => {
+    req.body.checkedUser.map((user_id) => {
+        const query = `delete from user where num = ?`;
+        try{
+            pool.query(query, [user_id]);
+            res.send(true);
+        }catch(err){
+            return res.status(500).json(err);
+        }
+    })
+});
+
+router.post("/user/sendMail", async(req, res) => {
+    
+})
 
 module.exports = router;

@@ -4,16 +4,14 @@ export default function ItemAdmin(props) {
 return (
     <div className="item-admin">
         <div className="item-num">
-            1
+            {props.payData.pay_id}
         </div>
-        <div className="item-img">
-            2
-        </div>
-        <div className="item-name">
-            3
-        </div>
+        <img src={`/images/${props.payData.image}`} alt="hello" className="item-img"/>
+        <a href={`https://localhost:3000/shop/buy/${props.payData.id}`} className="item-name">
+            {props.payData.name}
+        </a>
         <div className="item-price">
-            4
+            {props.payData.price}
         </div>
     </div>
 )

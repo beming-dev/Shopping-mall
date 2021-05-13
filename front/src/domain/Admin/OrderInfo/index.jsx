@@ -7,7 +7,7 @@ import ItemAdmin from '../../../components/ItemAdmin/index'
 import './style.css'
 
 export default function Home(props){
-    const [payData, setPayData] = useState([{}]);
+    const [payData, setPayData] = useState([]);
     const [paging, setPaging] = useState([]);
     const [page, setPage] = useState(1);
 
@@ -38,22 +38,21 @@ export default function Home(props){
         .then(data => {
             setPayData(data);
         })
-    }, []);
+    }, [page]);
 
     function onPagingClick(e){
         setPage(e.target.innerText*1);
     }
 
     return (
-        <div className="admin-home">
+        <div className="order-info">
             <HeaderAdmin />
             <NavAdmin />
             <div className="body">
-                {payData.map(payInfo =>
-                    <ItemAdmin payData={payInfo}/>
+                {payData.map((payInfo, index) =>
+                    <ItemAdmin key={index} payData={payInfo}/>
                 )}
                 <div className="paging">
-                    {console.log(paging)}
                     {paging.map((i)=>
                         <div onClick={onPagingClick}>{i}</div>
                     )}

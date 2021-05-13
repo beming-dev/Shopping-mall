@@ -108,7 +108,16 @@ onClick(e){
           submit.disabled=false;
           labelPwc.classList.remove("correspond");
       }
-}
+    }
+
+    // onSubmit(){
+    //     fetch("https://localhost:3001/process_register", {
+    //         credentials: 'include',
+    //         method: "post",
+    //         headers: {"Content-Type": "application/json"},
+    //         body: JSON.stringify({""})
+    //     })
+    // }
 
   render() {
     return (
@@ -116,7 +125,7 @@ onClick(e){
         <Header />
         <Nav />
         <div className="body">
-              <form action="http://localhost:3001/process_register" className="field" method="post">
+              <form action="https://localhost:3001/process_register" className="field" method="post">
                   <label htmlFor="id" className="label_id">id</label>
                   <input id="id" name="id" onChange={this.onChange}></input>
                   <button onClick={this.checkID} className="checkID">id check</button>
