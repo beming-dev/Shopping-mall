@@ -12,8 +12,7 @@ export default function Home(props){
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        console.log(1);
-        let p = paging;
+        let p = [];
         fetch("https://localhost:3001/admin/payCount", {
             credentials: 'include',
             method: 'post'
@@ -22,8 +21,8 @@ export default function Home(props){
         .then(count => {
             for(let i=1; i<=(count.count/10 + 1); i++){
                 p.push(i);
-                setPaging([...p]);
             }
+            setPaging([...p]);
         })
         return ()=>setPage([]) 
     }, []);
@@ -38,6 +37,7 @@ export default function Home(props){
         .then(res => res.json())
         .then(data => {
             setPayData(data);
+            console.log(payData);
         })
     }, [page]);
 
@@ -55,7 +55,7 @@ export default function Home(props){
                 )}
                 <div className="paging">
                     {paging.map((i)=>
-                        <div onClick={onPagingClick}>{i}</div>
+                        <div key={i} onClick={onPagingClick}>{i}</div>
                     )}
                 </div>
             </div>

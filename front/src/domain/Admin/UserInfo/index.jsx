@@ -92,7 +92,7 @@ export default function Home(props){
                 </table>
                 <div className="paging">
                     {paging.map((i)=>
-                        <div onClick={onPagingClick}>{i}</div>
+                        <div key={i} onClick={onPagingClick}>{i}</div>
                     )}
                 </div>
             </div>
