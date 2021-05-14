@@ -12,6 +12,7 @@ export default function Home(props){
     const [page, setPage] = useState(1);
 
     useEffect(() => {
+        console.log(1);
         let p = paging;
         fetch("https://localhost:3001/admin/payCount", {
             credentials: 'include',
